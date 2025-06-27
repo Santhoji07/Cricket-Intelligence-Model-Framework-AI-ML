@@ -1,0 +1,289 @@
+match_id,season,team1,team2,venue,winner,win_by_runs,win_by_wickets,result
+202201,2022,CSK,KKR,"Wankhede Stadium, Mumbai",KKR,0,6,close
+202202,2022,MI,DC,"Brabourne Stadium, Mumbai",DC,0,4,close
+202203,2022,RCB,PBKS,"Dr DY Patil Sports Academy, Mumbai",PBKS,0,5,close
+202204,2022,LSG,GT,"Wankhede Stadium, Mumbai",GT,0,5,close
+202205,2022,RR,SRH,"Maharashtra Cricket Association Stadium, Pune",RR,61,0,one-sided
+202206,2022,KKR,RCB,"Dr DY Patil Sports Academy, Mumbai",RCB,0,3,close
+202207,2022,CSK,LSG,"Brabourne Stadium, Mumbai",LSG,0,6,close
+202208,2022,PBKS,KKR,"Wankhede Stadium, Mumbai",KKR,0,6,close
+202209,2022,RR,MI,"Dr DY Patil Sports Academy, Mumbai",RR,23,0,close
+202210,2022,GT,DC,"Maharashtra Cricket Association Stadium, Pune",GT,14,0,close
+202211,2022,PBKS,CSK,"Brabourne Stadium, Mumbai",PBKS,54,0,one-sided
+202212,2022,LSG,SRH,"Dr DY Patil Sports Academy, Mumbai",LSG,12,0,close
+202213,2022,RR,RCB,"Wankhede Stadium, Mumbai",RCB,0,5,close
+202214,2022,MI,KKR,"Maharashtra Cricket Association Stadium, Pune",KKR,0,5,close
+202215,2022,DC,LSG,"Dr DY Patil Sports Academy, Mumbai",LSG,0,6,close
+202216,2022,PBKS,GT,"Brabourne Stadium, Mumbai",GT,0,7,close
+202217,2022,CSK,SRH,"Dr DY Patil Sports Academy, Mumbai",SRH,0,8,one-sided
+202218,2022,MI,RCB,"Maharashtra Cricket Association Stadium, Pune",RCB,0,8,one-sided
+202219,2022,DC,KKR,"Brabourne Stadium, Mumbai",DC,44,0,close
+202220,2022,RR,LSG,"Wankhede Stadium, Mumbai",RR,3,0,close
+202221,2022,GT,SRH,"Dr DY Patil Sports Academy, Mumbai",SRH,0,8,one-sided
+202222,2022,CSK,RCB,"Dr DY Patil Sports Academy, Mumbai",CSK,23,0,close
+202223,2022,PBKS,MI,"Maharashtra Cricket Association Stadium, Pune",PBKS,12,0,close
+202224,2022,GT,RR,"Dr DY Patil Sports Academy, Mumbai",GT,37,0,close
+202225,2022,KKR,SRH,"Brabourne Stadium, Mumbai",SRH,0,7,close
+202226,2022,LSG,MI,"Brabourne Stadium, Mumbai",LSG,18,0,close
+202227,2022,RCB,DC,"Wankhede Stadium, Mumbai",RCB,16,0,close
+202228,2022,PBKS,SRH,"Dr DY Patil Sports Academy, Mumbai",SRH,0,7,close
+202229,2022,CSK,GT,"Maharashtra Cricket Association Stadium, Pune",GT,0,3,close
+202230,2022,RR,KKR,"Brabourne Stadium, Mumbai",RR,7,0,close
+202231,2022,RCB,LSG,"Dr DY Patil Sports Academy, Mumbai",RCB,18,0,close
+202232,2022,PBKS,DC,"Brabourne Stadium, Mumbai",DC,0,9,one-sided
+202233,2022,MI,CSK,"Dr DY Patil Sports Academy, Mumbai",CSK,0,3,close
+202234,2022,RR,DC,"Wankhede Stadium, Mumbai",RR,15,0,close
+202235,2022,GT,KKR,"Dr DY Patil Sports Academy, Mumbai",GT,8,0,close
+202236,2022,RCB,SRH,"Brabourne Stadium, Mumbai",SRH,0,9,one-sided
+202237,2022,LSG,MI,"Wankhede Stadium, Mumbai",LSG,36,0,close
+202238,2022,PBKS,CSK,"Wankhede Stadium, Mumbai",PBKS,11,0,close
+202239,2022,RR,RCB,"Maharashtra Cricket Association Stadium, Pune",RR,29,0,close
+202240,2022,SRH,GT,"Wankhede Stadium, Mumbai",GT,0,5,close
+202241,2022,KKR,DC,"Wankhede Stadium, Mumbai",DC,0,5,close
+202242,2022,LSG,PBKS,"Maharashtra Cricket Association Stadium, Pune",LSG,20,0,close
+202243,2022,RCB,GT,"Brabourne Stadium, Mumbai",GT,0,6,close
+202244,2022,RR,MI,"Dr DY Patil Sports Academy, Mumbai",MI,0,5,close
+202245,2022,LSG,DC,"Wankhede Stadium, Mumbai",LSG,6,0,close
+202246,2022,CSK,SRH,"Maharashtra Cricket Association Stadium, Pune",CSK,13,0,close
+202247,2022,RR,KKR,"Wankhede Stadium, Mumbai",KKR,0,7,close
+202248,2022,GT,PBKS,"Dr DY Patil Sports Academy, Mumbai",PBKS,0,8,one-sided
+202249,2022,RCB,CSK,"Maharashtra Cricket Association Stadium, Pune",RCB,13,0,close
+202250,2022,DC,SRH,"Brabourne Stadium, Mumbai",DC,21,0,close
+202251,2022,MI,GT,"Brabourne Stadium, Mumbai",MI,5,0,close
+202252,2022,PBKS,RR,"Wankhede Stadium, Mumbai",RR,0,6,close
+202253,2022,LSG,KKR,"Maharashtra Cricket Association Stadium, Pune",LSG,75,0,one-sided
+202254,2022,RCB,SRH,"Wankhede Stadium, Mumbai",RCB,67,0,one-sided
+202255,2022,CSK,DC,"Dr DY Patil Sports Academy, Mumbai",CSK,91,0,one-sided
+202256,2022,KKR,MI,"Dr DY Patil Sports Academy, Mumbai",KKR,52,0,one-sided
+202257,2022,GT,LSG,"Maharashtra Cricket Association Stadium, Pune",GT,62,0,one-sided
+202258,2022,RR,DC,"Dr DY Patil Sports Academy, Mumbai",DC,0,8,one-sided
+202259,2022,CSK,MI,"Wankhede Stadium, Mumbai",MI,0,5,close
+202260,2022,PBKS,RCB,"Brabourne Stadium, Mumbai",PBKS,54,0,one-sided
+202261,2022,KKR,SRH,"Maharashtra Cricket Association Stadium, Pune",KKR,54,0,one-sided
+202262,2022,CSK,GT,"Wankhede Stadium, Mumbai",GT,0,7,close
+202263,2022,RR,LSG,"Brabourne Stadium, Mumbai",RR,24,0,close
+202264,2022,DC,PBKS,"Dr DY Patil Sports Academy, Mumbai",DC,17,0,close
+202265,2022,SRH,MI,"Wankhede Stadium, Mumbai",SRH,3,0,close
+202266,2022,LSG,KKR,"Dr DY Patil Sports Academy, Mumbai",LSG,2,0,close
+202267,2022,GT,RCB,"Wankhede Stadium, Mumbai",RCB,0,8,one-sided
+202268,2022,CSK,RR,"Brabourne Stadium, Mumbai",RR,0,5,close
+202269,2022,DC,MI,"Wankhede Stadium, Mumbai",MI,0,5,close
+202270,2022,SRH,PBKS,"Wankhede Stadium, Mumbai",PBKS,0,5,close
+202271,2022,RR,GT,"Eden Gardens, Kolkata",GT,0,8,one-sided
+202272,2022,RCB,LSG,"Eden Gardens, Kolkata",RCB,14,0,close
+202273,2022,RCB,RR,"Narendra Modi Stadium, Ahmedabad",RR,0,7,close
+202274,2022,RR,GT,"Narendra Modi Stadium, Ahmedabad",GT,0,7,close
+202301,2023,CSK,GT,"Narendra Modi Stadium, Ahmedabad",GT,0,5,close
+202302,2023,PBKS,KKR,"Punjab Cricket Association IS Bindra Stadium, Mohali",PBKS,45,0,close
+202303,2023,LSG,DC,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",LSG,50,0,one-sided
+202304,2023,RR,SRH,"Rajiv Gandhi International Stadium, Hyderabad",RR,72,0,one-sided
+202305,2023,MI,RCB,"M.Chinnaswamy Stadium, Bengaluru",RCB,0,8,one-sided
+202306,2023,CSK,LSG,"MA Chidambaram Stadium, Chennai",CSK,12,0,close
+202307,2023,DC,GT,"Arun Jaitley Stadium, Delhi",GT,0,6,close
+202308,2023,PBKS,RR,"Barsapara Cricket Stadium, Guwahati",PBKS,5,0,close
+202309,2023,KKR,RCB,"Eden Gardens, Kolkata",KKR,81,0,one-sided
+202310,2023,SRH,LSG,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",LSG,0,5,close
+202311,2023,RR,DC,"Barsapara Cricket Stadium, Guwahati",RR,57,0,one-sided
+202312,2023,MI,CSK,"Wankhede Stadium, Mumbai",CSK,0,7,close
+202313,2023,GT,KKR,"Narendra Modi Stadium, Ahmedabad",KKR,0,3,close
+202314,2023,PBKS,SRH,"Rajiv Gandhi International Stadium, Hyderabad",SRH,0,8,one-sided
+202315,2023,RCB,LSG,"M.Chinnaswamy Stadium, Bengaluru",LSG,0,1,close
+202316,2023,DC,MI,"Arun Jaitley Stadium, Delhi",MI,0,7,close
+202317,2023,RR,CSK,"MA Chidambaram Stadium, Chennai",RR,3,0,close
+202318,2023,PBKS,GT,"Punjab Cricket Association IS Bindra Stadium, Mohali",GT,0,6,close
+202319,2023,SRH,KKR,"Eden Gardens, Kolkata",SRH,23,0,close
+202320,2023,RCB,DC,"M.Chinnaswamy Stadium, Bengaluru",RCB,23,0,close
+202321,2023,LSG,PBKS,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",PBKS,0,2,close
+202322,2023,KKR,MI,"Wankhede Stadium, Mumbai",MI,0,5,close
+202323,2023,GT,RR,"Narendra Modi Stadium, Ahmedabad",RR,0,3,close
+202324,2023,CSK,RCB,"M.Chinnaswamy Stadium, Bengaluru",CSK,8,0,close
+202325,2023,MI,SRH,"Rajiv Gandhi International Stadium, Hyderabad",MI,14,0,close
+202326,2023,LSG,RR,"Sawai Mansingh Stadium, Jaipur",LSG,10,0,close
+202327,2023,RCB,PBKS,"Punjab Cricket Association IS Bindra Stadium, Mohali",RCB,24,0,close
+202328,2023,KKR,DC,"Arun Jaitley Stadium, Delhi",DC,0,4,close
+202329,2023,SRH,CSK,"MA Chidambaram Stadium, Chennai",CSK,0,8,one-sided
+202330,2023,GT,LSG,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",GT,7,0,close
+202331,2023,PBKS,MI,"Wankhede Stadium, Mumbai",PBKS,13,0,close
+202332,2023,RCB,RR,"M.Chinnaswamy Stadium, Bengaluru",RCB,7,0,close
+202333,2023,CSK,KKR,"Eden Gardens, Kolkata",CSK,49,0,close
+202334,2023,DC,SRH,"Rajiv Gandhi International Stadium, Hyderabad",DC,7,0,close
+202335,2023,GT,MI,"Narendra Modi Stadium, Ahmedabad",GT,55,0,one-sided
+202336,2023,KKR,RCB,"M.Chinnaswamy Stadium, Bengaluru",KKR,21,0,close
+202337,2023,RR,CSK,"Sawai Mansingh Stadium, Jaipur",RR,32,0,close
+202338,2023,LSG,PBKS,"Punjab Cricket Association IS Bindra Stadium, Mohali",LSG,56,0,one-sided
+202339,2023,KKR,GT,"Eden Gardens, Kolkata",GT,0,7,close
+202340,2023,SRH,DC,"Arun Jaitley Stadium, Delhi",SRH,9,0,close
+202341,2023,CSK,PBKS,"MA Chidambaram Stadium, Chennai",PBKS,0,4,close
+202342,2023,RR,MI,"Wankhede Stadium, Mumbai",MI,0,6,close
+202343,2023,RCB,LSG,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",RCB,18,0,close
+202344,2023,DC,GT,"Narendra Modi Stadium, Ahmedabad",DC,5,0,close
+202346,2023,PBKS,MI,"Punjab Cricket Association IS Bindra Stadium, Mohali",MI,0,6,close
+202347,2023,KKR,SRH,"Rajiv Gandhi International Stadium, Hyderabad",KKR,5,0,close
+202348,2023,RR,GT,"Sawai Mansingh Stadium, Jaipur",GT,0,9,one-sided
+202349,2023,MI,CSK,"MA Chidambaram Stadium, Chennai",CSK,0,6,close
+202350,2023,RCB,DC,"Arun Jaitley Stadium, Delhi",DC,0,7,close
+202351,2023,GT,LSG,"Narendra Modi Stadium, Ahmedabad",GT,56,0,one-sided
+202352,2023,RR,SRH,"Sawai Mansingh Stadium, Jaipur",SRH,0,4,close
+202353,2023,PBKS,KKR,"Eden Gardens, Kolkata",KKR,0,6,close
+202354,2023,RCB,MI,"Wankhede Stadium, Mumbai",MI,0,6,close
+202355,2023,CSK,DC,"MA Chidambaram Stadium, Chennai",CSK,27,0,close
+202356,2023,KKR,RR,"Eden Gardens, Kolkata",RR,0,10,one-sided
+202357,2023,MI,GT,"Wankhede Stadium, Mumbai",MI,27,0,close
+202358,2023,SRH,LSG,"Rajiv Gandhi International Stadium, Hyderabad",LSG,0,7,close
+202359,2023,PBKS,DC,"Arun Jaitley Stadium, Delhi",PBKS,31,0,close
+202360,2023,RCB,RR,"Sawai Mansingh Stadium, Jaipur",RCB,112,0,one-sided
+202361,2023,CSK,KKR,"MA Chidambaram Stadium, Chennai",KKR,0,7,close
+202362,2023,GT,SRH,"Narendra Modi Stadium, Ahmedabad",GT,34,0,close
+202363,2023,LSG,MI,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",LSG,5,0,close
+202365,2023,SRH,RCB,"Rajiv Gandhi International Stadium, Hyderabad",RCB,0,8,one-sided
+202366,2023,PBKS,RR,"Himachal Pradesh Cricket Association Stadium, Dharamsala",RR,0,4,close
+202367,2023,CSK,DC,"Arun Jaitley Stadium, Delhi",CSK,77,0,one-sided
+202368,2023,LSG,KKR,"Eden Gardens, Kolkata",LSG,1,0,close
+202369,2023,SRH,MI,"Wankhede Stadium, Mumbai",MI,0,8,one-sided
+202370,2023,RCB,GT,"M.Chinnaswamy Stadium, Bengaluru",GT,0,6,close
+202371,2023,CSK,GT,"MA Chidambaram Stadium, Chennai",CSK,15,0,close
+202373,2023,GT,MI,"Narendra Modi Stadium, Ahmedabad",GT,62,0,one-sided
+202374,2023,GT,CSK,"Narendra Modi Stadium, Ahmedabad",GT,43,0,close
+202401,2024,RCB,CSK,"MA Chidambaram Stadium, Chennai",CSK,0,6,close
+202402,2024,DC,PBKS,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",PBKS,0,5,close
+202403,2024,KKR,SRH,"Eden Gardens, Kolkata",KKR,3,0,close
+202404,2024,RR,LSG,"Sawai Mansingh Stadium, Jaipur",RR,19,0,close
+202405,2024,GT,MI,"Narendra Modi Stadium, Ahmedabad",GT,6,0,close
+202406,2024,PBKS,RCB,"M.Chinnaswamy Stadium, Bengaluru",RCB,0,4,close
+202407,2024,CSK,GT,"MA Chidambaram Stadium, Chennai",CSK,63,0,one-sided
+202408,2024,SRH,MI,"Rajiv Gandhi International Stadium, Hyderabad",SRH,30,0,close
+202409,2024,RR,DC,"Sawai Mansingh Stadium, Jaipur",RR,12,0,close
+202410,2024,RCB,KKR,"M.Chinnaswamy Stadium, Bengaluru",KKR,0,7,close
+202411,2024,LSG,PBKS,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",LSG,20,0,close
+202412,2024,SRH,GT,"Narendra Modi Stadium, Ahmedabad",GT,0,7,close
+202413,2024,DC,CSK,"Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam",DC,20,0,close
+202414,2024,MI,RR,"Wankhede Stadium, Mumbai",RR,0,6,close
+202415,2024,LSG,RCB,"M.Chinnaswamy Stadium, Bengaluru",LSG,26,0,close
+202416,2024,KKR,DC,"Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam",KKR,106,0,one-sided
+202417,2024,GT,PBKS,"Narendra Modi Stadium, Ahmedabad",PBKS,0,3,close
+202418,2024,CSK,SRH,"Rajiv Gandhi International Stadium, Hyderabad",SRH,0,6,close
+202419,2024,RCB,RR,"Sawai Mansingh Stadium, Jaipur",RR,0,6,close
+202420,2024,MI,DC,"Wankhede Stadium, Mumbai",MI,29,0,close
+202421,2024,LSG,GT,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",LSG,33,0,close
+202422,2024,KKR,CSK,"MA Chidambaram Stadium, Chennai",CSK,0,7,close
+202423,2024,SRH,PBKS,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",SRH,4,0,close
+202424,2024,RR,GT,"Sawai Mansingh Stadium, Jaipur",GT,0,4,close
+202425,2024,RCB,MI,"Wankhede Stadium, Mumbai",MI,0,7,close
+202426,2024,LSG,DC,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",DC,0,6,close
+202427,2024,PBKS,RR,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",RR,0,3,close
+202428,2024,LSG,KKR,"Eden Gardens, Kolkata",KKR,0,0,tie
+202429,2024,CSK,MI,"Wankhede Stadium, Mumbai",CSK,20,0,close
+202430,2024,SRH,RCB,"M.Chinnaswamy Stadium, Bengaluru",SRH,26,0,close
+202431,2024,KKR,RR,"Eden Gardens, Kolkata",RR,0,3,close
+202432,2024,GT,DC,"Narendra Modi Stadium, Ahmedabad",DC,0,6,close
+202433,2024,MI,PBKS,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",MI,10,0,close
+202434,2024,CSK,LSG,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",LSG,0,8,one-sided
+202435,2024,SRH,DC,"Arun Jaitley Stadium, Delhi",SRH,69,0,one-sided
+202436,2024,KKR,RCB,"Eden Gardens, Kolkata",KKR,1,0,close
+202437,2024,PBKS,GT,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",GT,0,3,close
+202438,2024,MI,RR,"Sawai Mansingh Stadium, Jaipur",RR,0,9,one-sided
+202439,2024,CSK,LSG,"MA Chidambaram Stadium, Chennai",LSG,0,6,close
+202440,2024,DC,GT,"Arun Jaitley Stadium, Delhi",DC,4,0,close
+202441,2024,RCB,SRH,"Rajiv Gandhi International Stadium, Hyderabad",RCB,36,0,close
+202442,2024,KKR,PBKS,"Eden Gardens, Kolkata",PBKS,0,9,one-sided
+202443,2024,DC,MI,"Arun Jaitley Stadium, Delhi",DC,11,0,close
+202444,2024,LSG,RR,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",RR,0,7,close
+202445,2024,GT,RCB,"Narendra Modi Stadium, Ahmedabad",RCB,0,9,one-sided
+202446,2024,CSK,SRH,"MA Chidambaram Stadium, Chennai",CSK,78,0,one-sided
+202447,2024,DC,KKR,"Eden Gardens, Kolkata",KKR,0,7,close
+202448,2024,MI,LSG,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",LSG,0,5,close
+202449,2024,CSK,PBKS,"MA Chidambaram Stadium, Chennai",PBKS,0,0,tie
+202450,2024,SRH,RR,"Rajiv Gandhi International Stadium, Hyderabad",RR,0,0,tie
+202451,2024,KKR,MI,"Wankhede Stadium, Mumbai",KKR,24,0,close
+202452,2024,GT,RCB,"M.Chinnaswamy Stadium, Bengaluru",RCB,0,4,close
+202453,2024,CSK,PBKS,"Himachal Pradesh Cricket Association Stadium, Dharamsala",CSK,28,0,close
+202454,2024,KKR,LSG,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",KKR,98,0,one-sided
+202455,2024,SRH,MI,"Wankhede Stadium, Mumbai",MI,0,7,close
+202456,2024,DC,RR,"Arun Jaitley Stadium, Delhi",DC,24,0,close
+202457,2024,LSG,SRH,"Rajiv Gandhi International Stadium, Hyderabad",SRH,0,10,one-sided
+202458,2024,RCB,PBKS,"Himachal Pradesh Cricket Association Stadium, Dharamsala",RCB,59,0,one-sided
+202459,2024,GT,CSK,"Narendra Modi Stadium, Ahmedabad",GT,35,0,close
+202460,2024,KKR,MI,"Eden Gardens, Kolkata",KKR,18,0,close
+202461,2024,RR,CSK,"MA Chidambaram Stadium, Chennai",CSK,0,6,close
+202462,2024,RCB,DC,"M.Chinnaswamy Stadium, Bengaluru",RCB,46,0,close
+202464,2024,DC,LSG,"Arun Jaitley Stadium, Delhi",DC,19,0,close
+202465,2024,RR,PBKS,"Barsapara Cricket Stadium, Guwahati",PBKS,0,5,close
+202467,2024,LSG,MI,"Wankhede Stadium, Mumbai",LSG,15,0,close
+202468,2024,RCB,CSK,"M.Chinnaswamy Stadium, Bengaluru",RCB,26,0,close
+202469,2024,PBKS,SRH,"Rajiv Gandhi International Stadium, Hyderabad",SRH,0,4,close
+202471,2024,SRH,KKR,"Narendra Modi Stadium, Ahmedabad",KKR,0,8,one-sided
+202472,2024,RCB,RR,"Narendra Modi Stadium, Ahmedabad",RR,0,5,close
+202473,2024,SRH,RR,"MA Chidambaram Stadium, Chennai",SRH,36,0,close
+202474,2024,SRH,KKR,"MA Chidambaram Stadium, Chennai",KKR,0,8,one-sided
+202501,2025,KKR,RCB,"Eden Gardens, Kolkata",RCB,0,7,close
+202502,2025,SRH,RR,"Rajiv Gandhi International Stadium, Hyderabad",SRH,43,0,close
+202503,2025,MI,CSK,"MA Chidambaram Stadium, Chennai",CSK,0,5,close
+202504,2025,LSG,DC,"Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam",DC,0,2,close
+202505,2025,PBKS,GT,"Narendra Modi Stadium, Ahmedabad",PBKS,11,0,close
+202506,2025,RR,KKR,"Barsapara Cricket Stadium, Guwahati",KKR,0,9,one-sided
+202507,2025,SRH,LSG,"Rajiv Gandhi International Stadium, Hyderabad",LSG,0,5,close
+202508,2025,RCB,CSK,"MA Chidambaram Stadium, Chennai",RCB,50,0,one-sided
+202509,2025,GT,MI,"Narendra Modi Stadium, Ahmedabad",GT,35,0,close
+202510,2025,SRH,DC,"Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam",DC,0,7,close
+202511,2025,RR,CSK,"Barsapara Cricket Stadium, Guwahati",RR,6,0,close
+202512,2025,KKR,MI,"Wankhede Stadium, Mumbai",MI,0,8,one-sided
+202513,2025,LSG,PBKS,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",PBKS,0,8,one-sided
+202514,2025,RCB,GT,"M.Chinnaswamy Stadium, Bengaluru",GT,0,8,one-sided
+202515,2025,KKR,SRH,"Eden Gardens, Kolkata",KKR,80,0,one-sided
+202516,2025,LSG,MI,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",LSG,12,0,close
+202517,2025,DC,CSK,"MA Chidambaram Stadium, Chennai",DC,25,0,close
+202518,2025,RR,PBKS,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",RR,52,0,one-sided
+202519,2025,SRH,GT,"Rajiv Gandhi International Stadium, Hyderabad",GT,0,7,close
+202520,2025,RCB,MI,"Wankhede Stadium, Mumbai",RCB,13,0,close
+202521,2025,LSG,KKR,"Eden Gardens, Kolkata",LSG,8,0,close
+202522,2025,PBKS,CSK,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",PBKS,12,0,close
+202523,2025,GT,RR,"Narendra Modi Stadium, Ahmedabad",GT,59,0,one-sided
+202524,2025,RCB,DC,"M.Chinnaswamy Stadium, Bengaluru",DC,0,6,close
+202525,2025,CSK,KKR,"MA Chidambaram Stadium, Chennai",KKR,0,8,one-sided
+202526,2025,GT,LSG,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",LSG,0,6,close
+202527,2025,PBKS,SRH,"Rajiv Gandhi International Stadium, Hyderabad",SRH,0,8,one-sided
+202528,2025,RR,RCB,"Sawai Mansingh Stadium, Jaipur",RCB,0,9,one-sided
+202529,2025,MI,DC,"Arun Jaitley Stadium, Delhi",MI,12,0,close
+202530,2025,LSG,CSK,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",CSK,0,5,close
+202531,2025,PBKS,KKR,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",PBKS,16,0,close
+202532,2025,DC,RR,"Arun Jaitley Stadium, Delhi",RR,0,6,close
+202533,2025,SRH,MI,"Wankhede Stadium, Mumbai",MI,0,4,close
+202534,2025,RCB,PBKS,"M.Chinnaswamy Stadium, Bengaluru",PBKS,0,5,close
+202535,2025,DC,GT,"Narendra Modi Stadium, Ahmedabad",GT,0,8,one-sided
+202536,2025,LSG,RR,"Sawai Mansingh Stadium, Jaipur",LSG,2,0,close
+202537,2025,PBKS,RCB,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",RCB,0,7,close
+202538,2025,CSK,MI,"Wankhede Stadium, Mumbai",MI,0,0,tie
+202539,2025,GT,KKR,"Eden Gardens, Kolkata",GT,39,0,close
+202540,2025,LSG,DC,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",DC,0,8,one-sided
+202541,2025,SRH,MI,"Rajiv Gandhi International Stadium, Hyderabad",MI,0,7,close
+202542,2025,RCB,RR,"M.Chinnaswamy Stadium, Bengaluru",RCB,11,0,close
+202543,2025,CSK,SRH,"MA Chidambaram Stadium, Chennai",SRH,0,5,close
+202544,2025,PBKS,KKR,"Eden Gardens, Kolkata",PBKS,194,0,one-sided
+202545,2025,MI,LSG,"Wankhede Stadium, Mumbai",MI,53,0,one-sided
+202546,2025,DC,RCB,"Arun Jaitley Stadium, Delhi",RCB,0,7,close
+202547,2025,GT,RR,"Sawai Mansingh Stadium, Jaipur",RR,0,8,one-sided
+202548,2025,KKR,DC,"Arun Jaitley Stadium, Delhi",KKR,13,0,close
+202549,2025,CSK,PBKS,"MA Chidambaram Stadium, Chennai",PBKS,0,4,close
+202550,2025,MI,RR,"Sawai Mansingh Stadium, Jaipur",MI,100,0,one-sided
+202551,2025,GT,SRH,"Narendra Modi Stadium, Ahmedabad",GT,38,0,close
+202552,2025,RCB,CSK,"M.Chinnaswamy Stadium, Bengaluru",RCB,2,0,close
+202553,2025,KKR,RR,"Eden Gardens, Kolkata",RR,0,3,close
+202554,2025,PBKS,LSG,"Himachal Pradesh Cricket Association Stadium, Dharamsala",PBKS,37,0,close
+202556,2025,MI,GT,"Wankhede Stadium, Mumbai",MI,10,0,close
+202557,2025,KKR,CSK,"Eden Gardens, Kolkata",CSK,0,2,close
+202559,2025,PBKS,RR,"Sawai Mansingh Stadium, Jaipur",PBKS,9,0,close
+202560,2025,DC,GT,"Arun Jaitley Stadium, Delhi",GT,0,10,one-sided
+202561,2025,LSG,SRH,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",SRH,0,5,close
+202562,2025,CSK,RR,"Arun Jaitley Stadium, Delhi",RR,0,6,close
+202563,2025,MI,DC,"Wankhede Stadium, Mumbai",MI,59,0,one-sided
+202564,2025,LSG,GT,"Narendra Modi Stadium, Ahmedabad",LSG,33,0,close
+202565,2025,SRH,RCB,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",SRH,42,0,close
+202566,2025,PBKS,DC,"Sawai Mansingh Stadium, Jaipur",DC,0,6,close
+202567,2025,CSK,GT,"Narendra Modi Stadium, Ahmedabad",CSK,83,0,one-sided
+202568,2025,SRH,KKR,"Arun Jaitley Stadium, Delhi",SRH,109,0,one-sided
+202569,2025,MI,PBKS,"Sawai Mansingh Stadium, Jaipur",PBKS,0,7,close
+202570,2025,LSG,RCB,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",RCB,0,6,close
+202571,2025,PBKS,RCB,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",RCB,0,8,one-sided
+202572,2025,MI,GT,"Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, New Chandigarh",MI,19,0,close
+202573,2025,MI,PBKS,"Narendra Modi Stadium, Ahmedabad",PBKS,0,6,close
+202574,2025,RCB,PBKS,"Narendra Modi Stadium, Ahmedabad",RCB,6,0,close
