@@ -25,13 +25,29 @@ player_pool = df[df['venue'] == target_venue].copy()
 
 # Validate team constraints
 def is_valid_team(team):
-    if len(team) != 11:
+    role_counts = team['role'].value_counts()
+    
+    required_roles = {
+        'opener': 2,
+        'middle_order': 2,
+        'finisher': 1,
+        'wicket_keeper': 1,
+        'spinner': 2,
+        'fast_bowler': 3
+    }
+
+    # Check exact role counts
+    for role, count in required_roles.items():
+        if role_counts.get(role, 0) != count:
+            return False
+
+    # Foreign players constraint (must have at least 4)
+    foreign_players = team[team['indian'].str.lower() != 'yes']
+    if len(foreign_players) < 4:
         return False
-    roles = team['role'].value_counts()
-    indians = team[team['indian'].str.lower() == 'yes']
-    wks = team[team['role'].str.lower().str.contains("wicket")]
-    bowlers = team[team['role'].isin(['fast_bowler', 'spinner'])]
-    return len(indians) >= 7 and len(wks) >= 1 and len(bowlers) >= 5
+
+    return True
+
 
 # Define fitness function
 def fitness(team):
