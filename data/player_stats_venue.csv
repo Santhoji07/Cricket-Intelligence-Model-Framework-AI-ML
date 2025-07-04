@@ -376,14 +376,14 @@ venue,player,indian,role,matches,runs,avg,SR,wickets,econ
 "Himachal Pradesh Cricket Association Stadium, Dharamsala",Chahal,Yes,spinner,2,NaN,NaN,NaN,1,11.2
 "Rajiv Gandhi International Stadium, Hyderabad",Chahal,Yes,spinner,3,NaN,NaN,NaN,5,11.2
 "Arun Jaitley Stadium, Delhi",Chahal,Yes,spinner,1,NaN,NaN,NaN,1,12
-"Rajiv Gandhi International Stadium, Hyderabad",Chahar,Yes,spinner,2,NaN,NaN,NaN,3,6.3
-"Arun Jaitley Stadium, Delhi",Chahar,Yes,spinner,2,NaN,NaN,NaN,4,6.7
-"Sawai Mansingh Stadium, Jaipur",Chahar,Yes,spinner,2,NaN,NaN,NaN,1,8.2
-"MA Chidambaram Stadium, Chennai",Chahar,Yes,spinner,13,29,NaN,171,14,8.6
-"Narendra Modi Stadium, Ahmedabad",Chahar,Yes,spinner,3,NaN,NaN,NaN,2,9.2
-"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",Chahar,Yes,spinner,3,NaN,NaN,NaN,0,10
-"Wankhede Stadium, Mumbai",Chahar,Yes,spinner,11,9,9,90,5,10.4
-"Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam",Chahar,Yes,spinner,1,NaN,NaN,NaN,0,10.5
+"Rajiv Gandhi International Stadium, Hyderabad",Chahar,Yes,fast_bowler,2,NaN,NaN,NaN,3,6.3
+"Arun Jaitley Stadium, Delhi",Chahar,Yes,fast_bowler,2,NaN,NaN,NaN,4,6.7
+"Sawai Mansingh Stadium, Jaipur",Chahar,Yes,fast_bowler,2,NaN,NaN,NaN,1,8.2
+"MA Chidambaram Stadium, Chennai",Chahar,Yes,fast_bowler,13,29,NaN,171,14,8.6
+"Narendra Modi Stadium, Ahmedabad",Chahar,Yes,fast_bowler,3,NaN,NaN,NaN,2,9.2
+"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",Chahar,Yes,fast_bowler,3,NaN,NaN,NaN,0,10
+"Wankhede Stadium, Mumbai",Chahar,Yes,fast_bowler,11,9,9,90,5,10.4
+"Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam",Chahar,Yes,fast_bowler,1,NaN,NaN,NaN,0,10.5
 "Arun Jaitley Stadium, Delhi",Chakaravarthy,Yes,spinner,2,1,NaN,17,2,4.2
 "Rajiv Gandhi International Stadium, Hyderabad",Chakaravarthy,Yes,spinner,1,NaN,NaN,NaN,1,6
 "Wankhede Stadium, Mumbai",Chakaravarthy,Yes,spinner,4,NaN,NaN,NaN,4,6
