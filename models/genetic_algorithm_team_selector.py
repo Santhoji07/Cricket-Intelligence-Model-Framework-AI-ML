@@ -21,24 +21,57 @@ df.fillna(0, inplace=True)
 '''target_venue = df['venue'].mode()[0]
 player_pool = df[(df['venue'] == target_venue) & (df['matches'] >= 2)].copy()'''
 # --- Accept Input ---
-input_venue = input("Enter venue name: ").strip().lower()
+'''input_venue = input("Enter venue name: ").strip().lower()
 
 input_squad = input("Enter comma-separated player names in squad: ")
-squad_names = [name.strip().lower() for name in input_squad.split(",")]
+squad_names = [name.strip().lower() for name in input_squad.split(",")]'''
+
+# --- New Input ---
+input_venue = input("Enter venue name: ").strip().lower()
+input_team = input("Enter team name: ").strip().lower()
+
+# --- Load team-to-player mapping ---
+roles_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv")
+roles_df['player'] = roles_df['player'].str.strip()
+roles_df['team'] = roles_df['team'].str.strip().str.lower()
+
+# --- Get squad players from selected team ---
+squad_names = roles_df[roles_df['team'] == input_team]['player'].str.lower().tolist()
+
 
 # Filter player_pool based on venue AND squad
 df['player_name_lower'] = df['player_name'].str.lower()
 df['venue_lower'] = df['venue'].str.lower()
 
-player_pool = df[
+'''player_pool = df[
     (df['venue_lower'] == input_venue) &
     (df['matches'] >= 0) &
     (df['player_name_lower'].isin(squad_names))
-].copy()
+].copy()'''
+# Try multiple match thresholds: >=3, >=2, >=1, >=0
+player_pool = pd.DataFrame()
+for min_matches in [3, 2, 1, 0]:
+    pool = df[
+        (df['venue_lower'] == input_venue) &
+        (df['player_name_lower'].isin(squad_names)) &
+        (df['matches'] >= min_matches)
+    ].copy()
+    if len(pool) >= 11:
+        print(f" Player pool created with min_matches >= {min_matches}")
+        player_pool = pool
+        break
 
 if player_pool.empty:
-    print("No valid players found for this venue and squad.")
+    print(" No players found from this team at this venue.")
     exit()
+
+print("\n🧾 Player pool summary:")
+print(player_pool[['player_name', 'role', 'indian']])
+print("\n📊 Role counts:")
+print(player_pool['role'].value_counts())
+print("\n🌏 Foreign player count:", len(player_pool[player_pool['indian'].str.lower() != 'yes']))
+print("🇮🇳 Indian player count:", len(player_pool[player_pool['indian'].str.lower() == 'yes']))
+
 
 # --- Helper Functions ---
 
@@ -88,12 +121,52 @@ def fitness(team):
 
 
 # Generate valid random team
-def generate_random_team():
+'''def generate_random_team():
     for _ in range(1000):
         team = player_pool.sample(11)
         if is_valid_team(team):
             return team
-    return None
+    return None'''
+
+def generate_random_team():
+    required_roles = {
+        'opener': 2,
+        'middle_order': 2,
+        'finisher': 1,
+        'wicket_keeper': 1,
+        'spinner': 2,
+        'fast_bowler': 3
+    }
+
+    team = pd.DataFrame()
+
+    for role, count in required_roles.items():
+        candidates = player_pool[player_pool['role'] == role]
+        if len(candidates) < count:
+            return None  # Not enough players for this role
+        selected = candidates.sample(count)
+        team = pd.concat([team, selected])
+
+    # Ensure exactly 4 foreign players
+    indian_players = team[team['indian'].str.lower() == 'yes']
+    foreign_players = team[team['indian'].str.lower() != 'yes']
+
+    if len(foreign_players) < 4:
+        extras = player_pool[
+            (player_pool['indian'].str.lower() != 'yes') &
+            (~player_pool['player_name'].isin(team['player_name']))
+        ]
+        needed = 4 - len(foreign_players)
+        if len(extras) < needed:
+            return None
+        team = pd.concat([
+            indian_players.sample(11 - 4),
+            foreign_players,
+            extras.sample(needed)
+        ])
+
+    return team.reset_index(drop=True)
+
 
 
 # Crossover: Mix top 5 from parent1 + rest from parent2, refill to 11
@@ -160,11 +233,30 @@ population = [team for team in population if team is not None]
 for gen in range(generations):
     scored = [(team, fitness(team)) for team in population]
     scored.sort(key=lambda x: x[1], reverse=True)
-    top_teams = [x[0] for x in scored[:10]]
+    #top_teams = [x[0] for x in scored[:10]]
+
+    top_teams = [x[0] for x in scored[:10] if x[0] is not None]
+
+# Fallbacks if not enough top teams
+if len(top_teams) < 2:
+    if len(scored) >= 2:
+        top_teams = [x[0] for x in scored[:2]]  # take from population
+    elif len(scored) == 1:
+        top_teams = [scored[0][0], scored[0][0]]  # duplicate one team
+    else:
+        print("No valid teams to continue evolution.")
+        exit()
+
 
     new_gen = top_teams.copy()
     while len(new_gen) < population_size:
+        '''if len(top_teams) < 2:
+            print("Not enough top teams to perform crossover.")
+            break  # or use continue or fill randomly
+        t1, t2 = random.sample(top_teams, 2)'''
+        
         t1, t2 = random.sample(top_teams, 2)
+        
         child = crossover(t1, t2)
         if random.random() < 0.2:
             child = mutate(child)
@@ -188,7 +280,9 @@ best_team_full_details = (
 
 
 print(" Best Playing XI - Full Details:\n")
-print(best_team_full_details)
+display_cols = [col for col in best_team_full_details.columns if not col.endswith('_lower')]
+print(best_team_full_details[display_cols])
+
 print("\n Total Fitness Score:", round(fitness(best_team), 2))
 
 # Optional: save to CSV

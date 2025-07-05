@@ -1,352 +1,351 @@
-player,role
-Aaron,fast_bowler
-Abbott,fast_bowler
-Abdul Basith,fast_bowler
-Abdul Samad,finisher
-Abhijeet Tomar,opener
-Abhinav Manohar,finisher
-Abhishek Sharma,opener
-Abishek Porel,wicket-keeper
-Adil Rashid,spinner
-Akash Deep,fast_bowler
-Akash Madhwal,fast_bowler
-Akash Maharaj Singh,fast_bowler
-Akash Singh,fast_bowler
-Akeal Hosein,spinner
-Alzarri Joseph,fast_bowler
-Aman Hakim Khan,middle_order
-Angkrish Raghuvanshi,middle_order
-Aniket Verma,finisher
-Anmolpreet Singh,opener
-Anshul Kamboj,fast_bowler
-Anuj Rawat,wicket-keeper
-Anukul Roy,spinner
-Arjun Tendulkar,fast_bowler
-Arshad Khan,fast_bowler
-Arshdeep Singh,fast_bowler
-Arshin Kulkarni,fast_bowler
-Ashutosh Sharma,finisher
-Ashwani Kumar,fast_bowler
-Ashwin,spinner
-Atharva Taide,opener
-Avesh Khan,fast_bowler
-Axar,spinner
-Ayush Badoni,middle_order
-Ayush Mhatre,opener
-Azmatullah,fast_bowler
-Bairstow,wicket-keeper
-Bartlett,fast_bowler
-Basil Thampi,fast_bowler
-Behrendorff,fast_bowler
-Bhandage,middle_order
-Bhui,opener
-Bhuvneshwar,fast_bowler
-Billings,middle_order
-Boult,fast_bowler
-Breetzke,opener
-Brevis,middle_order
-Bumrah,fast_bowler
-Buttler,wicket-keeper
-Chahal,spinner
-Chahar,fast_bowler
-Chakaravarthy,spinner
-Chameera,fast_bowler
-Chawla,spinner
-Chetan Sakariya,fast_bowler
-Conway,opener
-Corbin Bosch,fast_bowler
-Coulter-Nile,fast_bowler
-Cummins,fast_bowler
-Daniel Sams,fast_bowler
-Darshan Nalkande,fast_bowler
-Daryl Mitchell,middle_order
-de Kock,wicket-keeper
-Dhawan,opener
-Dhoni,wicket-keeper
-Dhruv Jurel,wicket-keeper
-Digvesh Rathi,spinner
-du Plessis,opener
-Dwayne Bravo,fast_bowler
-Eshan Malinga,fast_bowler
-Fabian Allen,spinner
-Fazalhaq Farooqi,fast_bowler
-Ferguson,fast_bowler
-Ferreira,middle_order
-Finch,opener
-Fraser-McGurk,opener
-Gaikwad,opener
-Gerald Coetzee,fast_bowler
-Glenn Phillips,middle_order
-Gowtham,spinner
-Green,opener
-Gulbadin,middle_order
-Gurbaz,wicket-keeper
-Gurnoor Brar,fast_bowler
-Hardik Pandya,finisher
-Harpreet Brar,spinner
-Harpreet Singh,opener
-Harry Brook,middle_order
-Harsh Dubey,spinner
-Harshal Patel,fast_bowler
-Harshit Rana,fast_bowler
-Hasaranga,spinner
-Hazlewood,fast_bowler
-Head,opener
-Hetmyer,finisher
-Himanshu Sharma,spinner
-Holder,fast_bowler
-Hooda,middle_order
-Hrithik Shokeen,spinner
-Indrajith,wicket-keeper
-Ishan Kishan,wicket-keeper
-Ishant,fast_bowler
-J Richardson,fast_bowler
-J Suchith,spinner
-Jackson,wicket-keeper
-Jacob Bethell,opener
-Jadeja,spinner
-Jaiswal,opener
-Jamie Overton,fast_bowler
-Jamieson,fast_bowler
-Jansen,fast_bowler
-Jayant Yadav,spinner
-Jitesh Sharma,wicket-keeper
-Jofra Archer,fast_bowler
-Jordan,fast_bowler
-Josh Inglis,wicket-keeper
-Joshua Little,fast_bowler
-K Nagarkoti,fast_bowler
-Kamindu Mendis,middle_order
-Karan Sharma,spinner
-Karan Sharma,middle_order
-Karim Janat,middle_order
-Karn Sharma,spinner
-Karthik,wicket-keeper
-Kartik Tyagi,fast_bowler
-Kumar Kartikeya,spinner
-Karun Nair,opener
-Kaverappa,spinner
-Kedar Jadhav,middle_order
-Khaleel Ahmed,fast_bowler
-Khejroliya,fast_bowler
-Klaasen,wicket-keeper
-KM Asif,fast_bowler
-Kohler-Cadmore,opener
-Kohli,opener
-Krunal Pandya,spinner
-KS Rathore,wicket-keeper
-Kuldeep Sen,fast_bowler
-Kuldeep Yadav,spinner
-Kuldip Yadav,fast_bowler
-Kusal Mendis,wicket-keeper
-Kushagra,wicket-keeper
-Kwena Maphaka,fast_bowler
-Lalit Yadav,spinner
-Lewis,opener
-Litton Das,wicket-keeper
-Livingstone,middle_order
-Livingstone 1 run,middle_order
-Lomror,middle_order
-M Bracewell,spinner
-M Siddharth,spinner
-Madhav Tiwari,fast_bowler
-Magala,fast_bowler
-Maharaj,spinner
-Manav Suthar,spinner
-Mandeep,middle_order
-Manish Pandey,middle_order
-Marco Jansen,fast_bowler
-Mark Wood,fast_bowler
-Markande,spinner
-Markram,opener
-Matt Henry,fast_bowler
-Maxwell,middle_order
-Mayank Agarawal,opener
-Mayank Dagar,spinner
-Mayank Yadav,fast_bowler
-Mayers,opener
-Meredith,fast_bowler
-Miller,finisher
-Milne,finisher
-Mishra,spinner
-Mitchell Marsh,opener
-Mitchell Owen,middle_order
-Mitchell Starc,fast_bowler
-Moeen Ali,spinner
-Mohit Rathee,middle_order
-Mohit Sharma,fast_bowler
-Mohsin Khan,fast_bowler
-Mujeeb,spinner
-Mukesh Choudhary,fast_bowler
-Mukesh Kumar,fast_bowler
-Mulder,fast_bowler
-Murugan Ashwin,spinner
-Musheer Khan,middle_order
-Mustafizur,fast_bowler
-N Jagadeesan,wicket_keeper
-N Thushara,fast_bowler
-Nabi,spinner
-Naman Dhir,finisher
-Nandre Burger,fast_bowler
-Narine,spinner
-Nathan Ellis,fast_bowler
-Navdeep Saini,fast_bowler
-Naveen-ul-Haq,fast_bowler
-Neesham,fast_bowler
-Nehal Wadhera,middle_order
-Ngidi,fast_bowler
-Nitish Rana,middle_order
-Nitish Reddy,middle_order
-Noor Ahmad,spinner
-Nortje,fast_bowler
-Obed McCoy,fast_bowler
-Odean Smith,fast_bowler
-Padikkal,opener
-Pant,wicket_keeper
-Parag,middle_order
-Parnell,fast_bowler
-Pathirana,fast_bowler
-Philip Salt,wicket_keeper
-Pollard,finisher
-Pooran,middle_order
-Powell,middle_order
-Prabhsimran,opener
-Prabhudessai,middle_order
-Prasidh,fast_bowler
-Praveen Dubey,spinner
-Prerak Mankad,opener
-Pretorius,fast_bowler
-Prince Yadav,fast_bowler
-Prithvi Shaw,opener
-Priyam Garg,middle_order
-Priyansh Arya,opener
-Rabada,fast_bowler
-Raghav Goyal,spinner
-Rahane,opener
-Rahul,wicket_keeper
-Rahul Chahar,spinner
-Rahul Tewatia,finisher
-Raj Bawa,fast_bowler
-Rajapaksa,wicket_keeper
-Rajat Patidar,middle_order
-Ramandeep Singh,finisher
-Rashid Khan,spinner
-Rasikh Salam,fast_bowler
-Ravi Bishnoi,spinner
-Ravindra,opener
-Rayudu,middle_order
-Raza,spinner
-Richard Gleeson,fast_bowler
-Rickelton,wicket_keeper
-Rinku Singh,finisher
-Ripal Patel,middle_order
-Rishi Dhawan,fast_bowler
-Riyan Parag,middle_order
-Robin Minz,wicket_keeper
-Rohit,opener
-Root,opener
-Rossouw,opener
-Roy,opener
-RS Hangargekar,fast_bowler
-Russell,finisher
-Rutherford,middle_order
-S Kaul,fast_bowler
-Saha,wicket_keeper
-Sai Kishore,spinner
-Sai Sudharsan,opener
-Sakariya,fast_bowler
-Sam Curran,fast_bowler
-Sameer Rizvi,middle_order
-Samson,wicket_keeper
-Sandeep,fast_bowler
-Sandeep Sharma,fast_bowler
-Sangwan,fast_bowler
-Sanjay Yadav,spinner
-Santner,spinner
-Sanvir Singh,middle_order
-Sarfaraz Khan,middle_order
-Satyanarayana Raju,fast_bowler
-Saurav Chauhan,opener
-Sediqullah Atal,opener
-Seifert,wicket_keeper
-Shahbaz Ahmed,spinner
-Shahrukh Khan,finisher
-Shai Hope,wicket_keeper
-Shaik Rasheed,opener
-Shamar Joseph,fast_bowler
-Shami,fast_bowler
-Shams Mulani,spinner
-Shanaka,middle_order
-Shankar,middle_order
-Sharath BR,wicket_keeper
-Shashank Singh,finisher
-Shepherd,fast_bowler
-Shivam Dube,middle_order
-Shivam Mavi,fast_bowler
-Shivam Singh,opener
-Short,opener
-Shreyas Gopal,spinner
-Shreyas Iyer,middle_order
-Shubham Dubey,finisher
-Shubman Gill,opener
-Simarjeet Singh,fast_bowler
-Siraj,fast_bowler
-Solanki,spinner
-Southee,fast_bowler
-Spencer Johnson,fast_bowler
-Srikar Bharat,wicket_keeper
-Stoinis,middle_order
-Stokes,middle_order
-Sumit Kumar,middle_order
-Suryakumar Yadav,middle_order
-Suryansh Shedge,middle_order
-Suyash Sharma,spinner
-Swapnil Singh,spinner
-T Natarajan,fast_bowler
-Tanush Kotian,fast_bowler
-Thakur,fast_bowler
-Theekshana,spinner
-Tilak Varma,middle_order
-Tim David,finisher
-Topley,fast_bowler
-Tripathi,opener
-Tristan Stubbs,finisher
-Turner,opener
-Tushar Deshpande,fast_bowler
-Tye,fast_bowler
-Tymal Mills,fast_bowler
-Umesh Yadav,fast_bowler
-Umran Malik,fast_bowler
-Unadkat,fast_bowler
-Urvil Patel,middle_order
-Uthappa,opener
-V Viyaskanth,spinner
-Vaibhav Arora,fast_bowler
-Vaibhav Suryavanshi,opener
-van der Dussen,opener
-Varun Chakaravarthy,spinner
-Venkatesh Iyer,middle_order
-Vignesh Puthur,spinner
-Vijaykumar Vyshak,fast_bowler
-Vipraj Nigam,spinner
-Vishnu Vinod,wicket_keeper
-Vivrant Sharma,middle_order
-Vohra,middle_order
-W Saha,wicket_keeper
-Wade,wicket_keeper
-Warner,opener
-Warrier,fast_bowler
-Washington Sundar,spinner
-Wiese,fast_bowler
-Will Jacks,opener
-Willey,fast_bowler
-William ORourke,fast_bowler
-Lizard Williams,fast_bowler
-Williamson,opener
-Wood,fast_bowler
-Yash Dayal,fast_bowler
-Yash Dhull,opener
-Yash Thakur,fast_bowler
-Yudhvir Singh,fast_bowler
-Zampa,spinner
-Zeeshan Ansari,spinner
+player,role,team
+Aaron,fast_bowler,NaN
+Abbott,fast_bowler,NaN
+Abdul Basith,fast_bowler,NaN
+Abdul Samad,finisher,LSG
+Abhijeet Tomar,opener,NaN
+Abhinav Manohar,finisher,SRH
+Abhishek Sharma,opener,SRH
+Abishek Porel,wicket-keeper,DC
+Adil Rashid,spinner,NaN
+Akash Deep,fast_bowler,LSG
+Akash Madhwal,fast_bowler,RR
+Akash Maharaj Singh,fast_bowler,NaN
+Akash Singh,fast_bowler,LSG
+Akeal Hosein,spinner,NaN
+Alzarri Joseph,fast_bowler,NaN
+Aman Hakim Khan,middle_order,NaN
+Angkrish Raghuvanshi,middle_order,KKR
+Aniket Verma,finisher,SRH
+Anmolpreet Singh,opener,NaN
+Anshul Kamboj,fast_bowler,CSK
+Anuj Rawat,wicket-keeper,GT
+Anukul Roy,spinner,KKR
+Arjun Tendulkar,fast_bowler,MI
+Arshad Khan,fast_bowler,GT
+Arshdeep Singh,fast_bowler,PBKS
+Arshin Kulkarni,fast_bowler,LSG
+Ashutosh Sharma,finisher,DC
+Ashwani Kumar,fast_bowler,MI
+Ashwin,spinner,CSK
+Atharva Taide,opener,SRH
+Avesh Khan,fast_bowler,LSG
+Axar,spinner,DC
+Ayush Badoni,middle_order,LSG
+Ayush Mhatre,opener,CSK
+Azmatullah,fast_bowler,PBKS
+Bairstow,wicket-keeper,NaN
+Bartlett,fast_bowler,PBKS
+Basil Thampi,fast_bowler,NaN
+Behrendorff,fast_bowler,NaN
+Bhandage,middle_order,RCB
+Bhui,opener,NaN
+Bhuvneshwar,fast_bowler,RCB
+Billings,middle_order,NaN
+Boult,fast_bowler,MI
+Breetzke,opener,LSG
+Brevis,middle_order,CSK
+Bumrah,fast_bowler,MI
+Buttler,wicket-keeper,GT
+Chahal,spinner,PBKS
+Chahar,fast_bowler,MI
+Chakaravarthy,spinner,KKR
+Chameera,fast_bowler,DC
+Chawla,spinner,NaN
+Chetan Sakariya,fast_bowler,NaN
+Conway,opener,CSK
+Corbin Bosch,fast_bowler,NaN
+Coulter-Nile,fast_bowler,NaN
+Cummins,fast_bowler,SRH
+Daniel Sams,fast_bowler,NaN
+Darshan Nalkande,fast_bowler,DC
+Daryl Mitchell,middle_order,NaN
+de Kock,wicket-keeper,KKR
+Dhawan,opener,NaN
+Dhoni,wicket-keeper,CSK
+Dhruv Jurel,wicket-keeper,RR
+Digvesh Rathi,spinner,LSG
+du Plessis,opener,DC
+Dwayne Bravo,fast_bowler,NaN
+Eshan Malinga,fast_bowler,SRH
+Fabian Allen,spinner,NaN
+Fazalhaq Farooqi,fast_bowler,RR
+Ferguson,fast_bowler,PBKS
+Ferreira,middle_order,DC
+Finch,opener,NaN
+Fraser-McGurk,opener,DC
+Gaikwad,opener,CSK
+Gerald Coetzee,fast_bowler,GT
+Glenn Phillips,middle_order,GT
+Gowtham,spinner,NaN
+Green,opener,NaN
+Gulbadin,middle_order,NaN
+Gurbaz,wicket-keeper,KKR
+Gurnoor Brar,fast_bowler,GT
+Hardik Pandya,finisher,MI
+Harpreet Brar,spinner,PBKS
+Harpreet Singh,opener,NaN
+Harry Brook,middle_order,DC
+Harsh Dubey,spinner,SRH
+Harshal Patel,fast_bowler,SRH
+Harshit Rana,fast_bowler,KKR
+Hasaranga,spinner,RR
+Hazlewood,fast_bowler,RCB
+Head,opener,SRH
+Hetmyer,finisher,RR
+Himanshu Sharma,spinner,LSG
+Holder,fast_bowler,NaN
+Hooda,middle_order,CSK
+Hrithik Shokeen,spinner,NaN
+Indrajith,wicket-keeper,NaN
+Ishan Kishan,wicket-keeper,SRH
+Ishant,fast_bowler,GT
+J Richardson,fast_bowler,NaN
+J Suchith,spinner,NaN
+Jackson,wicket-keeper,NaN
+Jacob Bethell,opener,RCB
+Jadeja,spinner,CSK
+Jaiswal,opener,RR
+Jamie Overton,fast_bowler,CSK
+Jamieson,fast_bowler,NaN
+Jansen,fast_bowler,PBKS
+Jayant Yadav,spinner,GT
+Jitesh Sharma,wicket-keeper,RCB
+Jofra Archer,fast_bowler,RR
+Jordan,fast_bowler,NaN
+Josh Inglis,wicket-keeper,PBKS
+Joshua Little,fast_bowler,NaN
+K Nagarkoti,fast_bowler,CSK
+Kamindu Mendis,middle_order,SRH
+Karan Sharma,spinner,MI
+Karan Sharma,middle_order,NaN
+Karim Janat,middle_order,GT
+Karn Sharma,spinner,MI
+Karthik,wicket-keeper,NaN
+Kartik Tyagi,fast_bowler,NaN
+Kumar Kartikeya,spinner,RR
+Karun Nair,opener,DC
+Kaverappa,spinner,NaN
+Kedar Jadhav,middle_order,NaN
+Khaleel Ahmed,fast_bowler,CSK
+Khejroliya,fast_bowler,GT
+Klaasen,wicket-keeper,SRH
+KM Asif,fast_bowler,NaN
+Kohler-Cadmore,opener,NaN
+Kohli,opener,RCB
+Krunal Pandya,spinner,RCB
+KS Rathore,wicket-keeper,NaN
+Kuldeep Sen,fast_bowler,PBKS
+Kuldeep Yadav,spinner,DC
+Kuldip Yadav,fast_bowler,NaN
+Kusal Mendis,wicket-keeper,NaN
+Kushagra,wicket-keeper,GT
+Kwena Maphaka,fast_bowler,RR
+Lalit Yadav,spinner,NaN
+Lewis,opener,NaN
+Litton Das,wicket-keeper,NaN
+Livingstone,middle_order,RCB
+Lomror,middle_order,GT
+M Bracewell,spinner,NaN
+M Siddharth,spinner,LSG
+Madhav Tiwari,fast_bowler,DC
+Magala,fast_bowler,NaN
+Maharaj,spinner,NaN
+Manav Suthar,spinner,GT
+Mandeep,middle_order,NaN
+Manish Pandey,middle_order,KKR
+Marco Jansen,fast_bowler,PBKS
+Mark Wood,fast_bowler,NaN
+Markande,spinner,KKR
+Markram,opener,LSG
+Matt Henry,fast_bowler,NaN
+Maxwell,middle_order,PBKS
+Mayank Agarawal,opener,NaN
+Mayank Dagar,spinner,NaN
+Mayank Yadav,fast_bowler,LSG
+Mayers,opener,NaN
+Meredith,fast_bowler,NaN
+Miller,finisher,LSG
+Milne,finisher,NaN
+Mishra,spinner,NaN
+Mitchell Marsh,opener,LSG
+Mitchell Owen,middle_order,NaN
+Mitchell Starc,fast_bowler,DC
+Moeen Ali,spinner,KKR
+Mohit Rathee,middle_order,RCB
+Mohit Sharma,fast_bowler,DC
+Mohsin Khan,fast_bowler,LSG
+Mujeeb,spinner,MI
+Mukesh Choudhary,fast_bowler,CSK
+Mukesh Kumar,fast_bowler,DC
+Mulder,fast_bowler,SRH
+Murugan Ashwin,spinner,NaN
+Musheer Khan,middle_order,PBKS
+Mustafizur,fast_bowler,NaN
+N Jagadeesan,wicket_keeper,NaN
+N Thushara,fast_bowler,RCB
+Nabi,spinner,NaN
+Naman Dhir,finisher,MI
+Nandre Burger,fast_bowler,NaN
+Narine,spinner,KKR
+Nathan Ellis,fast_bowler,CSK
+Navdeep Saini,fast_bowler,NaN
+Naveen-ul-Haq,fast_bowler,NaN
+Neesham,fast_bowler,NaN
+Nehal Wadhera,middle_order,PBKS
+Ngidi,fast_bowler,RCB
+Nitish Rana,middle_order,RR
+Nitish Reddy,middle_order,SRH
+Noor Ahmad,spinner,CSK
+Nortje,fast_bowler,KKR
+Obed McCoy,fast_bowler,NaN
+Odean Smith,fast_bowler,NaN
+Padikkal,opener,RCB
+Pant,wicket_keeper,LSG
+Parag,middle_order,RR
+Parnell,fast_bowler,NaN
+Pathirana,fast_bowler,CSK
+Philip Salt,wicket_keeper,RCB
+Pollard,finisher,NaN
+Pooran,middle_order,LSG
+Powell,middle_order,KKR
+Prabhsimran,opener,PBKS
+Prabhudessai,middle_order,NaN
+Prasidh,fast_bowler,GT
+Praveen Dubey,spinner,PBKS
+Prerak Mankad,opener,NaN
+Pretorius,fast_bowler,NaN
+Prince Yadav,fast_bowler,LSG
+Prithvi Shaw,opener,NaN
+Priyam Garg,middle_order,NaN
+Priyansh Arya,opener,PBKS
+Rabada,fast_bowler,GT
+Raghav Goyal,spinner,NaN
+Rahane,opener,KKR
+Rahul,wicket_keeper,DC
+Rahul Chahar,spinner,SRH
+Rahul Tewatia,finisher,GT
+Raj Bawa,fast_bowler,MI
+Rajapaksa,wicket_keeper,NaN
+Rajat Patidar,middle_order,RCB
+Ramandeep Singh,finisher,KKR
+Rashid Khan,spinner,GT
+Rasikh Salam,fast_bowler,RCB
+Ravi Bishnoi,spinner,LSG
+Ravindra,opener,CSK
+Rayudu,middle_order,NaN
+Raza,spinner,NaN
+Richard Gleeson,fast_bowler,NaN
+Rickelton,wicket_keeper,MI
+Rinku Singh,finisher,KKR
+Ripal Patel,middle_order,NaN
+Rishi Dhawan,fast_bowler,NaN
+Riyan Parag,middle_order,RR
+Robin Minz,wicket_keeper,MI
+Rohit,opener,MI
+Root,opener,NaN
+Rossouw,opener,NaN
+Roy,opener,NaN
+RS Hangargekar,fast_bowler,LSG
+Russell,finisher,KKR
+Rutherford,middle_order,GT
+S Kaul,fast_bowler,NaN
+Saha,wicket_keeper,NaN
+Sai Kishore,spinner,GT
+Sai Sudharsan,opener,GT
+Sakariya,fast_bowler,NaN
+Sam Curran,fast_bowler,CSK
+Sameer Rizvi,middle_order,DC
+Samson,wicket_keeper,RR
+Sandeep,fast_bowler,RR
+Sandeep Sharma,fast_bowler,RR
+Sangwan,fast_bowler,NaN
+Sanjay Yadav,spinner,NaN
+Santner,spinner,MI
+Sanvir Singh,middle_order,NaN
+Sarfaraz Khan,middle_order,NaN
+Satyanarayana Raju,fast_bowler,MI
+Saurav Chauhan,opener,NaN
+Sediqullah Atal,opener,NaN
+Seifert,wicket_keeper,NaN
+Shahbaz Ahmed,spinner,LSG
+Shahrukh Khan,finisher,GT
+Shai Hope,wicket_keeper,NaN
+Shaik Rasheed,opener,CSK
+Shamar Joseph,fast_bowler,LSG
+Shami,fast_bowler,SRH
+Shams Mulani,spinner,NaN
+Shanaka,middle_order,NaN
+Shankar,middle_order,CSK
+Sharath BR,wicket_keeper,NaN
+Shashank Singh,finisher,PBKS
+Shepherd,fast_bowler,RCB
+Shivam Dube,middle_order,CSK
+Shivam Mavi,fast_bowler,NaN
+Shivam Singh,opener,NaN
+Short,opener,NaN
+Shreyas Gopal,spinner,CSK
+Shreyas Iyer,middle_order,PBKS
+Shubham Dubey,finisher,RR
+Shubman Gill,opener,GT
+Simarjeet Singh,fast_bowler,SRH
+Siraj,fast_bowler,GT
+Solanki,spinner,NaN
+Southee,fast_bowler,NaN
+Spencer Johnson,fast_bowler,KKR
+Srikar Bharat,wicket_keeper,NaN
+Stoinis,middle_order,PBKS
+Stokes,middle_order,NaN
+Sumit Kumar,middle_order,NaN
+Suryakumar Yadav,middle_order,MI
+Suryansh Shedge,middle_order,PBKS
+Suyash Sharma,spinner,RCB
+Swapnil Singh,spinner,RCB
+T Natarajan,fast_bowler,DC
+Tanush Kotian,fast_bowler,NaN
+Thakur,fast_bowler,LSG
+Theekshana,spinner,RR
+Tilak Varma,middle_order,MI
+Tim David,finisher,RCB
+Topley,fast_bowler,MI
+Tripathi,opener,CSK
+Tristan Stubbs,finisher,DC
+Turner,opener,NaN
+Tushar Deshpande,fast_bowler,RR
+Tye,fast_bowler,NaN
+Tymal Mills,fast_bowler,NaN
+Umesh Yadav,fast_bowler,GT
+Umran Malik,fast_bowler,KKR
+Unadkat,fast_bowler,SRH
+Urvil Patel,middle_order,CSK
+Uthappa,opener,NaN
+V Viyaskanth,spinner,NaN
+Vaibhav Arora,fast_bowler,KKR
+Vaibhav Suryavanshi,opener,RR
+van der Dussen,opener,NaN
+Varun Chakaravarthy,spinner,KKR
+Venkatesh Iyer,middle_order,KKR
+Vignesh Puthur,spinner,MI
+Vijaykumar Vyshak,fast_bowler,PBKS
+Vipraj Nigam,spinner,DC
+Vishnu Vinod,wicket_keeper,PBKS
+Vivrant Sharma,middle_order,NaN
+Vohra,middle_order,NaN
+W Saha,wicket_keeper,NaN
+Wade,wicket_keeper,NaN
+Warner,opener,NaN
+Warrier,fast_bowler,NaN
+Washington Sundar,spinner,GT
+Wiese,fast_bowler,NaN
+Will Jacks,opener,MI
+Willey,fast_bowler,NaN
+William ORourke,fast_bowler,NaN
+Lizard Williams,fast_bowler,MI
+Williamson,opener,NaN
+Wood,fast_bowler,NaN
+Yash Dayal,fast_bowler,RCB
+Yash Dhull,opener,NaN
+Yash Thakur,fast_bowler,PBKS
+Yudhvir Singh,fast_bowler,NaN
+Zampa,spinner,SRH
+Zeeshan Ansari,spinner,SRH
