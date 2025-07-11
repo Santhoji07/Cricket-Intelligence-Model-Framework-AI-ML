@@ -1,4 +1,3 @@
-
 import pandas as pd
 import random
 import numpy as np
@@ -201,34 +200,51 @@ def generate_random_team():
         selected = candidates.sample(count)
         team = pd.concat([team, selected])
 
-    # If strict build failed, try with substitution logic
+    # Fallback: fill randomly if not enough role-based players
     if team.empty:
-        # Flatten all required_roles into a list to randomly fill 11
-        fallback_roles = list(player_pool['role'].unique())
         selected = player_pool.sample(11)
-        if not selected.empty:
-            team = selected
+        team = selected
 
-    # Ensure 2 to 4 foreign players
-    foreign_players = team[team['indian'].str.lower() != 'yes']
-    if len(foreign_players) > 4:
-        team = team.drop(foreign_players.sample(len(foreign_players) - 4).index)
-    elif len(foreign_players) < 2:
+    # Enforce at least 3 fast bowlers
+    fast_bowlers = team[team['role'] == 'fast_bowler']
+    if len(fast_bowlers) < 3:
+        needed = 3 - len(fast_bowlers)
         extras = player_pool[
+            (player_pool['role'] == 'fast_bowler') &
+            (~player_pool['player_name'].isin(team['player_name']))
+        ]
+        if len(extras) >= needed:
+            to_remove = team[~team['role'].isin(['wicket_keeper'])].sample(needed)
+            team = team.drop(to_remove.index)
+            team = pd.concat([team, extras.sample(needed)])
+
+    # Try to include 4 foreign players if they exist with valid roles
+    current_foreign = team[team['indian'].str.lower() != 'yes']
+    if len(current_foreign) < 4:
+        needed = 4 - len(current_foreign)
+        available_foreign = player_pool[
             (player_pool['indian'].str.lower() != 'yes') &
             (~player_pool['player_name'].isin(team['player_name']))
         ]
-        needed = 2 - len(foreign_players)
-        if len(extras) >= needed:
-            team = pd.concat([
-                team[team['indian'].str.lower() == 'yes'].sample(11 - needed),
-                extras.sample(needed)
-            ])
+        available_foreign = available_foreign.sample(frac=1)  # shuffle
 
+        for _, row in available_foreign.iterrows():
+            replaceable = team[
+                (team['indian'].str.lower() == 'yes') &
+                (team['role'] == row['role'])
+            ]
+            if not replaceable.empty:
+                team = team.drop(replaceable.iloc[0].name)
+                team = pd.concat([team, pd.DataFrame([row])])
+                needed -= 1
+                if needed == 0:
+                    break
+
+    # Final check
     if len(team) == 11:
         return team.reset_index(drop=True)
-    else:
-        return None
+    return None
+
 
 
 
@@ -260,6 +276,20 @@ def crossover(team1, team2):
         
         selected = candidates.sample(min(count, len(candidates)))
         new_team = pd.concat([new_team, selected])
+
+            # Ensure at least 3 fast bowlers after crossover
+    fast_bowlers = new_team[new_team['role'] == 'fast_bowler']
+    if len(fast_bowlers) < 3:
+        needed = 3 - len(fast_bowlers)
+        extras = player_pool[
+            (player_pool['role'] == 'fast_bowler') &
+            (~player_pool['player_name'].isin(new_team['player_name']))
+        ]
+        if len(extras) >= needed:
+            to_remove = new_team[~new_team['role'].isin(['wicket_keeper'])].sample(needed)
+            new_team = new_team.drop(to_remove.index)
+            new_team = pd.concat([new_team, extras.sample(needed)])
+
 
     return new_team.reset_index(drop=True)
 
