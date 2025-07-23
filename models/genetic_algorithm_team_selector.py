@@ -341,6 +341,8 @@ def generate_random_team():
             team = team.drop(to_remove.index)
             team = pd.concat([team, extras.sample(needed)])
 
+            
+
     # Try to include 4 foreign players if they exist with valid roles
     current_foreign = team[team['indian'].str.lower() != 'yes']
     if len(current_foreign) < 4:
@@ -349,7 +351,15 @@ def generate_random_team():
             (player_pool['indian'].str.lower() != 'yes') &
             (~player_pool['player_name'].isin(team['player_name']))
         ]
-        available_foreign = available_foreign.sample(frac=1)  # shuffle
+        
+        available_foreign = available_foreign.sort_values(
+            by=['wickets', 'bat_avg'], ascending=False
+        )
+
+        
+        
+        
+  # shuffle
 
         for _, row in available_foreign.iterrows():
             replaceable = team[
