@@ -1,164 +1,3 @@
-'''import pandas as pd
-import random
-import numpy as np
-
-random.seed(42)
-np.random.seed(42)
-
-
-# Load dataset
-df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_stats_venue.csv")
-
-# Standardize column names
-df.columns = [col.strip().lower() for col in df.columns]
-df = df.rename(columns={
-    'player': 'player_name',
-    'avg': 'bat_avg',
-    'sr': 'bat_sr'
-})
-
-# Clean missing data
-df = df.dropna(subset=['player_name'])
-df.fillna(0, inplace=True)
-
-# Choose the most common venue
-
-# --- New Input ---
-input_venue = input("Enter venue name: ").strip().lower()
-input_team = input("Enter team name: ").strip().lower()
-
-# --- Load team-to-player mapping ---
-roles_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv")
-roles_df['player'] = roles_df['player'].str.strip()
-roles_df['team'] = roles_df['team'].str.strip().str.lower()
-
-# --- Get squad players from selected team ---
-squad_names = roles_df[roles_df['team'] == input_team]['player'].str.lower().tolist()
-
-
-# Filter player_pool based on venue AND squad
-df['player_name_lower'] = df['player_name'].str.lower()
-df['venue_lower'] = df['venue'].str.lower()
-
-# Try multiple match thresholds: >=3, >=2, >=1, >=0
-player_pool = pd.DataFrame()
-for min_matches in [3, 2, 1, 0]:
-    pool = df[
-        (df['venue_lower'] == input_venue) &
-        (df['player_name_lower'].isin(squad_names)) &
-        (df['matches'] >= min_matches)
-    ].copy()
-    if len(pool) >= 11:
-        print(f" Player pool created with min_matches >= {min_matches}")
-        player_pool = pool
-        break
-
-if player_pool.empty:
-    print(" No players found from this team at this venue.")
-    exit()
-
-    # Players from the squad not in the player pool
-pool_names_lower = set(player_pool['player_name_lower'].tolist())
-squad_not_in_pool = set(squad_names) - pool_names_lower
-
-print(f"\n Players from Squad NOT in Player Pool (filtered out by venue or matches):")
-print(", ".join(sorted([p.title() for p in squad_not_in_pool])) if squad_not_in_pool else "None")
-
-
-print("\n🧾 Player pool summary:")
-print(player_pool[['player_name', 'role', 'indian']])
-print("\n📊 Role counts:")
-print(player_pool['role'].value_counts())
-print("\n🌏 Foreign player count:", len(player_pool[player_pool['indian'].str.lower() != 'yes']))
-print("🇮🇳 Indian player count:", len(player_pool[player_pool['indian'].str.lower() == 'yes']))
-
-print("\n🔍 Role availability check:")
-role_needs = {
-    'opener': 2,
-    'middle_order': 2,
-    'finisher': 1,
-    'wicket_keeper': 1,
-    'spinner': 2,
-    'fast_bowler': 3
-}
-for role, required in role_needs.items():
-    found = len(player_pool[player_pool['role'] == role])
-    print(f"{role}: required={required}, found={found}")
-
-
-# --- Helper Functions ---
-
-# Validate team constraints strictly
-
-def is_valid_team(team):
-    if team is None or len(team) != 11:
-        return False
-
-    role_counts = team['role'].value_counts().to_dict()
-
-    # Original role requirements
-    required_roles = {
-        'opener': 2,
-        'middle_order': 2,
-        'finisher': 1,
-        'wicket_keeper': 1,
-        'spinner': 2,
-        'fast_bowler': 3
-    }
-
-    # Clone to modify for substitutions
-    role_counts_flexible = role_counts.copy()
-
-    # Substitute logic
-    # If opener < 2, try using middle_order
-    if role_counts_flexible.get('opener', 0) < 2:
-        short = 2 - role_counts_flexible.get('opener', 0)
-        role_counts_flexible['middle_order'] = role_counts_flexible.get('middle_order', 0) - short
-
-    # If middle_order < 2, try using finisher
-    if role_counts_flexible.get('middle_order', 0) < 2:
-        short = 2 - role_counts_flexible.get('middle_order', 0)
-        role_counts_flexible['finisher'] = role_counts_flexible.get('finisher', 0) - short
-
-    # If finisher < 1, try using middle_order
-    if role_counts_flexible.get('finisher', 0) < 1:
-        short = 1 - role_counts_flexible.get('finisher', 0)
-        role_counts_flexible['middle_order'] = role_counts_flexible.get('middle_order', 0) - short
-
-    # If spinner < 2, try using fast_bowler
-    if role_counts_flexible.get('spinner', 0) < 2:
-        short = 2 - role_counts_flexible.get('spinner', 0)
-        role_counts_flexible['fast_bowler'] = role_counts_flexible.get('fast_bowler', 0) - short
-
-    # If fast_bowler < 3, try using spinner
-    if role_counts_flexible.get('fast_bowler', 0) < 3:
-        short = 3 - role_counts_flexible.get('fast_bowler', 0)
-        role_counts_flexible['spinner'] = role_counts_flexible.get('spinner', 0) - short
-
-    # Final check after substitutions
-    try:
-        if role_counts_flexible.get('wicket_keeper', 0) < 1:
-            return False
-        if role_counts_flexible.get('opener', 0) < 2:
-            return False
-        if role_counts_flexible.get('middle_order', 0) < 0:
-            return False
-        if role_counts_flexible.get('finisher', 0) < 0:
-            return False
-        if role_counts_flexible.get('spinner', 0) < 0:
-            return False
-        if role_counts_flexible.get('fast_bowler', 0) < 0:
-            return False
-    except:
-        return False
-
-    # Relaxed: allow 2–4 foreign players
-    foreign_players = team[team['indian'].str.lower() != 'yes']
-    if not (2 <= len(foreign_players) <= 4):
-        return False
-
-    return True'''
-
 import pandas as pd
 import random
 import numpy as np
@@ -239,6 +78,8 @@ for role, required in role_needs.items():
     found = len(player_pool[player_pool['role'] == role])
     print(f"{role}: required={required}, found={found}")
 
+
+
 def is_valid_team(team):
     if team is None or len(team) != 11:
         return False
@@ -315,63 +156,68 @@ def generate_random_team():
 
     team = pd.DataFrame()
 
-    # Select top-performing players for each role regardless of nationality
     for role, count in required_roles.items():
-        candidates = player_pool[player_pool['role'] == role].copy()
+        candidates = player_pool[player_pool['role'] == role]
+        if len(candidates) < count:
+            team = pd.DataFrame()  # reset, try fallback
+            break
+        selected = candidates.sample(count)
+        team = pd.concat([team, selected])
 
-        # Sort based on performance: batting roles use bat_avg + bat_sr, bowling uses wickets + econ
-        if role in ['opener', 'middle_order', 'finisher', 'wicket_keeper']:
-            candidates['performance'] = candidates['bat_avg'] + candidates['bat_sr'] / 10
-        else:
-            candidates['performance'] = candidates['wickets'] * 2 - candidates['econ']
+    # Fallback: fill randomly if not enough role-based players
+    if team.empty:
+        selected = player_pool.sample(11)
+        team = selected
 
-        top_candidates = candidates.sort_values(by='performance', ascending=False).head(count)
+    # Enforce at least 3 fast bowlers
+    fast_bowlers = team[team['role'] == 'fast_bowler']
+    if len(fast_bowlers) < 3:
+        needed = 3 - len(fast_bowlers)
+        extras = player_pool[
+            (player_pool['role'] == 'fast_bowler') &
+            (~player_pool['player_name'].isin(team['player_name']))
+        ]
+        if len(extras) >= needed:
+            to_remove = team[~team['role'].isin(['wicket_keeper'])].sample(needed)
+            team = team.drop(to_remove.index)
+            team = pd.concat([team, extras.sample(needed)])
 
-        # If not enough candidates, fallback to random
-        if len(top_candidates) < count:
-            missing = count - len(top_candidates)
-            filler = candidates[~candidates['player_name'].isin(top_candidates['player_name'])].sample(missing)
-            top_candidates = pd.concat([top_candidates, filler])
+            
 
-        team = pd.concat([team, top_candidates])
-
-    team = team.drop_duplicates(subset='player_name')
-
-    # Enforce 4 foreign players if possible with role balance
+    # Try to include 4 foreign players if they exist with valid roles
     current_foreign = team[team['indian'].str.lower() != 'yes']
     if len(current_foreign) < 4:
         needed = 4 - len(current_foreign)
-        foreign_pool = player_pool[
+        available_foreign = player_pool[
             (player_pool['indian'].str.lower() != 'yes') &
             (~player_pool['player_name'].isin(team['player_name']))
-        ].copy()
-
-        foreign_pool['performance'] = np.where(
-            foreign_pool['role'].isin(['opener', 'middle_order', 'finisher', 'wicket_keeper']),
-            foreign_pool['bat_avg'] + foreign_pool['bat_sr'] / 10,
-            foreign_pool['wickets'] * 2 - foreign_pool['econ']
+        ]
+        
+        available_foreign = available_foreign.sort_values(
+            by=['wickets', 'bat_avg'], ascending=False
         )
 
-        foreign_pool = foreign_pool.sort_values(by='performance', ascending=False)
+        
+        
+        
+  # shuffle
 
-        for _, row in foreign_pool.iterrows():
-            # Replace a weaker Indian player with same role
+        for _, row in available_foreign.iterrows():
             replaceable = team[
                 (team['indian'].str.lower() == 'yes') &
                 (team['role'] == row['role'])
-            ].sort_values(by='bat_avg' if row['role'] in ['opener', 'middle_order', 'finisher', 'wicket_keeper'] else 'wickets')
-
+            ]
             if not replaceable.empty:
                 team = team.drop(replaceable.iloc[0].name)
                 team = pd.concat([team, pd.DataFrame([row])])
                 needed -= 1
-            if needed == 0:
-                break
+                if needed == 0:
+                    break
 
-    # Final validation
-    team = team.sample(frac=1).reset_index(drop=True)  # shuffle
-    return team if is_valid_team(team) else None
-
+    # Final check
+    if len(team) == 11:
+        return team.reset_index(drop=True)
+    return None
 
 
 
@@ -519,4 +365,3 @@ else:
 # best_team_full_details.to_csv("best_playing_xi.csv", index=False)
 
 
-#constrains issue 
