@@ -1,4 +1,4 @@
-venue,player,indian,role,matches,runs,avg,SR,wickets,econ
+venue,player_name,indian,role,matches,runs,bat_avg,bat_sr,wickets,econ
 "Maharashtra Cricket Association Stadium, Pune",Aaron,Yes,fast_bowler,1,NaN,NaN,NaN,0,8
 "Wankhede Stadium, Mumbai",Aaron,Yes,fast_bowler,1,NaN,NaN,NaN,2,11.2
 "Brabourne Stadium, Mumbai",Abbott,No,fast_bowler,2,7,7,140,1,11.8
