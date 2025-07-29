@@ -7,8 +7,8 @@ import random
 # -----------------------------
 @st.cache_data
 def load_data():
-    stats = pd.read_csv("D:\AI ML Cricket Project CIM model\CIM\data\player_stats_venue.csv")   # 📂 Must have: player_name, venue, matches, bat_avg, bat_sr, wickets, econ, role, indian
-    roles = pd.read_csv("D:\AI ML Cricket Project CIM model\CIM\data\player_roles.csv")         # 📂 Must have: player_name, franchise
+    stats = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_stats_venue.csv")   # 📂 Must have: player_name, venue, matches, bat_avg, bat_sr, wickets, econ, role, indian
+    roles = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv")         # 📂 Must have: player_name, franchise
     return stats, roles
 
 stats_df, roles_df = load_data()
