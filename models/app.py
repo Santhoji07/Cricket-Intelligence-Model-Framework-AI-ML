@@ -1,4 +1,4 @@
-import streamlit as st
+'''import streamlit as st
 import pandas as pd
 import random
 
@@ -188,6 +188,51 @@ if st.button("⚡ Generate Best XI"):
 
         st.success(f"🏆 Total Fitness Score: {round(fitness(best_team), 2)}")
     else:
-        st.error("❌ Could not generate a valid team. Check your dataset.")
+        st.error("❌ Could not generate a valid team. Check your dataset.")'''
+
+import streamlit as st
+from ga_team_selector import CricketTeamGA
+
+# Paths to your dataset CSV files
+STATS_FILE = "D:/AI ML Cricket Project CIM model/CIM/data/player_stats_venue.csv"
+ROLES_FILE = "D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv"
+
+def main():
+    st.title("Cricket Intelligence Model - Best XI Selector")
+
+    # Initialize GA model
+    ga_model = CricketTeamGA(STATS_FILE, ROLES_FILE)
+
+    # Input widgets
+    input_team = st.text_input("Enter Team Name (in lowercase, e.g., 'mumbai indians')", "")
+    input_venue = st.text_input("Enter Venue Name (in lowercase)", "")
+
+    if st.button("Select Best XI"):
+        if not input_team or not input_venue:
+            st.warning("Please fill in both Team and Venue.")
+            return
+
+        try:
+            best_team = ga_model.run_ga(input_team.strip(), input_venue.strip())
+
+            # Sort roles for display order
+            role_order = ['opener', 'middle_order', 'wicket_keeper', 'finisher', 'spinner', 'fast_bowler']
+            best_team = best_team.assign(
+                role_order_index=best_team['role'].apply(lambda r: role_order.index(r))
+            ).sort_values(by='role_order_index').reset_index(drop=True).drop(columns=['role_order_index'])
+
+            st.subheader("Selected Best Playing XI")
+            st.dataframe(best_team[['player_name', 'role', 'bat_avg', 'bat_sr', 'wickets', 'econ', 'indian']])
+
+            total_fitness = ga_model.fitness(best_team)
+            st.write(f"**Total Fitness Score:** {round(total_fitness, 2)}")
+
+        except Exception as e:
+            st.error(str(e))
+
+
+if __name__ == '__main__':
+    main()
+
 
 
