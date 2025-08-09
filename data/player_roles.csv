@@ -134,7 +134,7 @@ Hardik Pandya,finisher,MI
 Hetmyer,finisher,RR
 Miller,finisher,LSG
 Milne,finisher,NaN
-Naman Dhir,finisher,MI
+Naman Dhir,middle_order,MI
 Pollard,finisher,NaN
 Rahul Tewatia,finisher,GT
 Ramandeep Singh,finisher,KKR
@@ -258,7 +258,6 @@ Anukul Roy,spinner,KKR
 Ashwin,spinner,CSK
 Axar,spinner,DC
 Chahal,spinner,PBKS
-Chakaravarthy,spinner,KKR
 Chawla,spinner,NaN
 Digvesh Rathi,spinner,LSG
 Fabian Allen,spinner,NaN
@@ -271,7 +270,7 @@ Hrithik Shokeen,spinner,NaN
 J Suchith,spinner,NaN
 Jadeja,spinner,CSK
 Jayant Yadav,spinner,GT
-Karan Sharma,spinner,MI
+Karan Sharma,middle_order,NaN
 Karn Sharma,spinner,MI
 Kumar Kartikeya,spinner,RR
 Kaverappa,spinner,NaN
@@ -339,7 +338,7 @@ Dhoni,wicket_keeper,CSK
 Dhruv Jurel,wicket_keeper,RR
 Gurbaz,wicket_keeper,KKR
 Indrajith,wicket_keeper,NaN
-Ishan Kishan,wicket_keeper,SRH
+Ishan Kishan,middle_order,SRH
 Jackson,wicket_keeper,NaN
 Jitesh Sharma,wicket_keeper,RCB
 Josh Inglis,wicket_keeper,PBKS
