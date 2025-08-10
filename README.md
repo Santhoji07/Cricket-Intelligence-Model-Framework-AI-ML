@@ -1,3 +1,3 @@
-# Indepth-Cricket-Analysis-for-Team-Strategy--Machine-Learning
+# Indepth-Cricket-Analysis-for-Team-Strategy- AI/ML
 
 On Progress
