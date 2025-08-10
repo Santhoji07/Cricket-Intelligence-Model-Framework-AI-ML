@@ -1,9 +1,13 @@
 import streamlit as st
 import pandas as pd
 from ga_team_selector import CricketTeamGA
+from ap_opponent_analysis import run_apriori_matchups
 
+# ---------------------------------------------------------------------
+# File paths
 STATS_FILE = "D:/AI ML Cricket Project CIM model/CIM/data/player_stats_venue.csv"
 ROLES_FILE = "D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv"
+BALL_BY_BALL_FILE = "D:/AI ML Cricket Project CIM model/CIM/data/ball_by_ball_stats_ap.csv"
 
 ROLE_DISPLAY = {
     'opener': 'Opener',
@@ -15,6 +19,7 @@ ROLE_DISPLAY = {
 }
 ROLE_ORDER = ['Opener', 'Middle order', 'Wicket-Keeper', 'Finisher', 'Spinner', 'Fast Bowler']
 
+# ---------- Utility formatting functions ----------
 def format_roles(df):
     df = df.copy()
     if 'role' in df.columns:
@@ -48,7 +53,8 @@ def show_table(df, start_index=1):
     df.index = range(start_index, start_index + len(df))
     st.dataframe(df)
 
-st.title("Cricket Intelligence Model - Best XI Selector")
+# ---------------------------------------------------------------------
+st.title("Cricket Intelligence Model - Best XI Selector & Apriori Matchup Analysis")
 
 df_roles_raw = pd.read_csv(ROLES_FILE)
 df_stats_raw = pd.read_csv(STATS_FILE)
@@ -62,10 +68,13 @@ input_venue_display = st.selectbox("Select Venue", venue_display)
 input_team = input_team_display.strip().lower()
 input_venue = input_venue_display.strip().lower()
 
+# ---------- Step 1: Best XI Selection ----------
 if st.button("Select Best XI"):
     try:
         ga_model = CricketTeamGA(STATS_FILE, ROLES_FILE)
         best_team = ga_model.run_ga(input_team, input_venue)
+
+        st.session_state.best_xi = best_team
 
         st.subheader(f"{input_team_display} Squad List")
         squad_df = clean_table(ga_model.franchise_list.copy())
@@ -92,7 +101,6 @@ if st.button("Select Best XI"):
 
         leftover_df = ga_model.player_pool[~ga_model.player_pool['player_name'].isin(best_team['player_name'])].copy()
         if not leftover_df.empty:
-            # Aggregate any leftovers & sort
             leftover_df = leftover_df.groupby('player_name', as_index=False).agg({
                 'role': 'first',
                 'matches': 'sum',
@@ -103,7 +111,6 @@ if st.button("Select Best XI"):
                 'econ': 'mean',
                 'indian': 'first'
             })
-
         leftover_df = clean_table(leftover_df)
         leftover_df = format_floats(sort_by_role(format_roles(leftover_df)))
         st.subheader("Players Left Out from Player Pool")
@@ -116,3 +123,89 @@ if st.button("Select Best XI"):
 
     except Exception as e:
         st.error(str(e))
+
+# ---------- Step 2: Opponent & Apriori ----------
+if 'best_xi' in st.session_state:
+    st.markdown("---")
+    st.subheader("Opponent Setup (for Apriori Analysis)")
+
+    opponent_team = st.selectbox("Select Opponent Franchise", franchise_display, key="opponent_team")
+    opponent_squad = df_roles_raw[df_roles_raw['franchise'] == opponent_team]['player_name'].tolist()
+    opponent_xi = st.multiselect("Select Opponent Playing XI", opponent_squad, key="opponent_xi")
+
+    if st.button("Run Apriori Matchup Analysis"):
+        if not opponent_xi or len(opponent_xi) != 11:
+            st.warning("Please select exactly 11 players for opponent XI.")
+        else:
+            ball_df = pd.read_csv(BALL_BY_BALL_FILE)
+            try:
+                results_df = run_apriori_matchups(
+                    my_xi=st.session_state.best_xi,
+                    opponent_xi=opponent_xi,
+                    ball_df=ball_df
+                )
+
+                if results_df.empty:
+                    st.warning("No strong historical patterns found for these matchups.")
+                else:
+                    # Parse columns with original case from ball_df
+                    def extract_parts_with_case(row):
+                        ant = [s.strip() for s in row['antecedents'].split(',')]
+                        cons = [s.strip() for s in row['consequents'].split(',')]
+
+                        bowler = next((x.replace('bowler:', '').strip() for x in ant if x.startswith('bowler:')), '')
+                        batsman = next((x.replace('batsman:', '').strip() for x in cons if x.startswith('batsman:')), '')
+                        venue = next((x.replace('venue:', '').strip() for x in ant if x.startswith('venue:')), '')
+                        phase = next((x.replace('phase:', '').strip() for x in ant if x.startswith('phase:')), '')
+                        dismissal_type = next((x.replace('dismissal:', '').strip() for x in ant if x.startswith('dismissal:')), '')
+
+                        # Restore case from ball_df
+                        bowler_case = ball_df.loc[ball_df['bowler'].str.lower() == bowler.lower(), 'bowler'].head(1)
+                        batsman_case = ball_df.loc[ball_df['batsman'].str.lower() == batsman.lower(), 'batsman'].head(1)
+                        venue_case = ball_df.loc[ball_df['venue'].str.lower() == venue.lower(), 'venue'].head(1)
+
+                        bowler = bowler_case.iloc[0] if not bowler_case.empty else bowler.title()
+                        batsman = batsman_case.iloc[0] if not batsman_case.empty else batsman.title()
+                        venue = venue_case.iloc[0] if not venue_case.empty else venue.title()
+                        phase = phase.capitalize() if phase else ''
+
+                        return pd.Series({
+                            'Bowler': bowler, 
+                            'Batsman': batsman,
+                            'Venue': venue,
+                            'Phase': phase,
+                            'Dismissal': dismissal_type,
+                            'Support': row['support'],
+                            'Confidence': row['confidence'],
+                            'Lift': row['lift']
+                        })
+
+                    pretty_df = results_df.apply(extract_parts_with_case, axis=1)
+
+                    # Deduplicate: keep highest Lift per Bowler-Batsman
+                    deduped = (
+                        pretty_df
+                        .sort_values(['Bowler', 'Batsman', 'Lift', 'Confidence'], ascending=[True, True, False, False])
+                        .drop_duplicates(['Bowler', 'Batsman'])
+                    )
+
+                    # Sort top N & reindex from 1 for display table
+                    top_n = 20
+                    top_results = deduped.sort_values(['Lift', 'Confidence', 'Support'], ascending=False).head(top_n)
+                    top_results.index = range(1, len(top_results) + 1)
+
+                    # Tactical Summary (plain sentences without numbers/metrics)
+                    summary_lines = [
+                        f"{row.Bowler} bowling in the {row.Phase} overs at {row.Venue} has a high historical success against {row.Batsman}."
+                        for _, row in top_results.iterrows()
+                    ]
+
+                    st.subheader("🔝 Best Unique Bowler-Batsman Matchups")
+                    st.dataframe(top_results.reset_index(drop=False).rename(columns={"index": "Sl.No"}))
+
+                    st.subheader("📝 Tactical Summary")
+                    for i, sentence in enumerate(summary_lines, start=1):
+                        st.write(f"{i}. {sentence}")
+
+            except Exception as e:
+                st.error(f"Apriori error: {e}")
