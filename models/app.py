@@ -189,21 +189,47 @@ if 'best_xi' in st.session_state:
                         .drop_duplicates(['Bowler', 'Batsman'])
                     )
 
-                    # Sort top N & reindex from 1 for display table
+                    # Sort and take top N
                     top_n = 20
                     top_results = deduped.sort_values(['Lift', 'Confidence', 'Support'], ascending=False).head(top_n)
-                    top_results.index = range(1, len(top_results) + 1)
+
+                    # Remove old index & add Sl.No
+                    top_results = top_results.reset_index(drop=True)
+                    top_results['Sl.No'] = range(1, len(top_results) + 1)
+
+                    # Reorder columns so Sl.No is first
+                    cols = ['Sl.No'] + [c for c in top_results.columns if c != 'Sl.No']
+                    top_results = top_results[cols]
+
+                    # Show without the index
+                    st.subheader("🔝 Best Unique Bowler-Batsman Matchups")
+                    st.dataframe(top_results.set_index('Sl.No'))
+                    # This will show Sl.No as first column, no default index
+
 
                     # Tactical Summary (plain sentences without numbers/metrics)
-                    summary_lines = [
-                        f"{row.Bowler} bowling in the {row.Phase} overs at {row.Venue} has a high historical success against {row.Batsman}."
-                        for _, row in top_results.iterrows()
-                    ]
+                    summary_lines = []
+                    for _, row in top_results.iterrows():
+                        # Decide the context text
+                        if row.Phase and row.Venue:
+                            context = f"in the {row.Phase} overs at {row.Venue}"
+                        elif row.Phase and not row.Venue:
+                            context = f"in the {row.Phase} overs"
+                        elif not row.Phase and row.Venue:
+                            context = f"at {row.Venue}"
+                        else:
+                            context = ""
 
-                    st.subheader("🔝 Best Unique Bowler-Batsman Matchups")
-                    st.dataframe(top_results.reset_index(drop=False).rename(columns={"index": "Sl.No"}))
+                        # Build final sentence
+                        if context:
+                            sentence = f"{row.Bowler} bowling {context} has a high historical success against {row.Batsman}."
+                        else:
+                            sentence = f"{row.Bowler} bowling has a high historical success against {row.Batsman}."
 
-                    st.subheader("📝 Tactical Summary")
+                        summary_lines.append(sentence)
+                        
+
+                    st.subheader("📝 Tactical Insights")
                     for i, sentence in enumerate(summary_lines, start=1):
                         st.write(f"{i}. {sentence}")
 
