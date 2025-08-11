@@ -56,3 +56,4 @@ def run_apriori_matchups(my_xi, opponent_xi, ball_df):
     return rules[['antecedents','consequents','support','confidence','lift']].sort_values(
         ['lift', 'confidence'], ascending=False
     )
+
