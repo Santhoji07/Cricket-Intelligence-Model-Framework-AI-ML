@@ -235,3 +235,80 @@ if 'best_xi' in st.session_state:
 
             except Exception as e:
                 st.error(f"Apriori error: {e}")
+
+# ---------- Step 3: SVM Match Outcome Prediction ----------
+# --- SVM Match Outcome Prediction Section ---
+import streamlit as st
+import pandas as pd
+import joblib
+
+st.markdown("---")
+st.subheader("🏏 Match Outcome Prediction (SVM) Between Two Teams")
+
+# Load model & features
+try:
+    svm_model = joblib.load("svm_match_outcome_model.pkl")
+    feature_cols = joblib.load("svm_match_outcome_features.pkl")
+except:
+    st.error("⚠️ Model files not found! Please run svm_match_outcome.py first.")
+    st.stop()
+
+# Load your reference datasets for dropdown lists
+player_roles_df = pd.read_csv("player_roles.csv")
+player_stats_df = pd.read_csv("player_stats_venue.csv")
+
+team_list = sorted(player_roles_df['franchise'].unique())
+venue_list = sorted(player_stats_df['venue'].unique())
+
+# Dropdowns for two teams and venue
+team_a = st.selectbox("Select Your Team (GA Best XI)", team_list)
+team_b = st.selectbox("Select Opponent Team", team_list)
+venue = st.selectbox("Select Venue", venue_list)
+
+# Placeholder for calculating average runs/wickets for selected team
+def calculate_team_averages(team_name):
+    """Calculates average batting runs and wickets for a team from player stats."""
+    team_players = player_roles_df[player_roles_df['franchise'] == team_name]['player_name']
+    team_stats = player_stats_df[player_stats_df['player_name'].isin(team_players)]
+    
+    avg_runs = team_stats['runs'].mean() if not team_stats.empty else 0
+    avg_wkts = team_stats['wickets'].mean() if not team_stats.empty else 0
+    return round(avg_runs, 2), round(avg_wkts, 2)
+
+# Auto-calculate for Team A (you can tweak to also consider Team B’s strength)
+avg_team_runs, avg_team_wkts = calculate_team_averages(team_a)
+
+# Option to override the auto values
+avg_team_runs = st.number_input("Average Runs for Team A", value=avg_team_runs, step=0.1)
+avg_team_wkts = st.number_input("Average Wickets for Team A", value=avg_team_wkts, step=0.1)
+
+if st.button("🔮 Predict Outcome"):
+    # Build empty feature row
+    input_df = pd.DataFrame(0, index=[0], columns=feature_cols)
+    
+    # Fill numeric features
+    if "avg_team_runs" in input_df.columns:
+        input_df["avg_team_runs"] = avg_team_runs
+    if "avg_team_wkts" in input_df.columns:
+        input_df["avg_team_wkts"] = avg_team_wkts
+
+    # Fill categorical one-hot encoding
+    col_team = f"team_{team_a}"
+    col_opp = f"opponent_{team_b}"
+    col_ven = f"venue_{venue}"
+
+    if col_team in input_df.columns:
+        input_df[col_team] = 1
+    if col_opp in input_df.columns:
+        input_df[col_opp] = 1
+    if col_ven in input_df.columns:
+        input_df[col_ven] = 1
+
+    # Prediction & probabilities
+    prediction = svm_model.predict(input_df)[0]
+    probas = svm_model.predict_proba(input_df)[0]
+    confidence = max(probas) * 100
+
+    # Output results
+    st.success(f"Predicted Result: **{prediction.upper()}**")
+    st.info(f"Prediction Confidence: {confidence:.2f}%")
