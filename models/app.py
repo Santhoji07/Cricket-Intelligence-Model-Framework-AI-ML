@@ -237,78 +237,190 @@ if 'best_xi' in st.session_state:
                 st.error(f"Apriori error: {e}")
 
 # ---------- Step 3: SVM Match Outcome Prediction ----------
-# --- SVM Match Outcome Prediction Section ---
 import streamlit as st
 import pandas as pd
 import joblib
 
-st.markdown("---")
-st.subheader("🏏 Match Outcome Prediction (SVM) Between Two Teams")
+st.set_page_config(page_title="Cricket Match Outcome Predictor", layout="centered")
 
-# Load model & features
+# ---------- Load saved model ----------
 try:
     svm_model = joblib.load("svm_match_outcome_model.pkl")
     feature_cols = joblib.load("svm_match_outcome_features.pkl")
 except:
-    st.error("⚠️ Model files not found! Please run svm_match_outcome.py first.")
+    st.error("⚠️ Model not found. Please run svm_match_outcome.py first.")
     st.stop()
 
-# Load your reference datasets for dropdown lists
-player_roles_df = pd.read_csv("player_roles.csv")
-player_stats_df = pd.read_csv("player_stats_venue.csv")
+# ---------- Load datasets ----------
+player_roles_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv")
+player_stats_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_stats_venue.csv")
 
-team_list = sorted(player_roles_df['franchise'].unique())
+# Remove NaN and ensure all are strings
+team_list = sorted(
+    player_roles_df['franchise']
+    .dropna()              # remove missing values
+    .astype(str)           # ensure string type
+    .unique()
+)
+
 venue_list = sorted(player_stats_df['venue'].unique())
 
-# Dropdowns for two teams and venue
-team_a = st.selectbox("Select Your Team (GA Best XI)", team_list)
-team_b = st.selectbox("Select Opponent Team", team_list)
-venue = st.selectbox("Select Venue", venue_list)
+st.title("🏏 Match Outcome Prediction (SVM)")
 
-# Placeholder for calculating average runs/wickets for selected team
+# ---------- Select teams and venue ----------
+team_a = st.selectbox("Select Your Team (GA Best XI)", team_list)
+team_b = st.selectbox("Select Opponent Team (Apriori Insights)", team_list)
+venue = st.selectbox("Select Match Venue", venue_list)
+
+# ---------- Calculate average stats ----------
 def calculate_team_averages(team_name):
-    """Calculates average batting runs and wickets for a team from player stats."""
-    team_players = player_roles_df[player_roles_df['franchise'] == team_name]['player_name']
-    team_stats = player_stats_df[player_stats_df['player_name'].isin(team_players)]
-    
-    avg_runs = team_stats['runs'].mean() if not team_stats.empty else 0
-    avg_wkts = team_stats['wickets'].mean() if not team_stats.empty else 0
+    players = player_roles_df[player_roles_df['franchise'] == team_name]['player_name']
+    stats = player_stats_df[player_stats_df['player_name'].isin(players)]
+    avg_runs = stats['runs'].mean() if not stats.empty else 0
+    avg_wkts = stats['wickets'].mean() if not stats.empty else 0
     return round(avg_runs, 2), round(avg_wkts, 2)
 
-# Auto-calculate for Team A (you can tweak to also consider Team B’s strength)
-avg_team_runs, avg_team_wkts = calculate_team_averages(team_a)
+avg_runs, avg_wkts = calculate_team_averages(team_a)
 
-# Option to override the auto values
-avg_team_runs = st.number_input("Average Runs for Team A", value=avg_team_runs, step=0.1)
-avg_team_wkts = st.number_input("Average Wickets for Team A", value=avg_team_wkts, step=0.1)
+# Allow manual override
+avg_team_runs = st.number_input("Average Team Runs (adjust if needed)", value=avg_runs, step=0.1)
+avg_team_wkts = st.number_input("Average Team Wickets (adjust if needed)", value=avg_wkts, step=0.1)
 
+# ---------- Predict ----------
 if st.button("🔮 Predict Outcome"):
-    # Build empty feature row
+    # Create input dataframe with all 0s
     input_df = pd.DataFrame(0, index=[0], columns=feature_cols)
-    
-    # Fill numeric features
-    if "avg_team_runs" in input_df.columns:
-        input_df["avg_team_runs"] = avg_team_runs
-    if "avg_team_wkts" in input_df.columns:
-        input_df["avg_team_wkts"] = avg_team_wkts
 
-    # Fill categorical one-hot encoding
-    col_team = f"team_{team_a}"
-    col_opp = f"opponent_{team_b}"
-    col_ven = f"venue_{venue}"
+    # Fill in numeric features
+    if 'avg_team_runs' in input_df.columns:
+        input_df['avg_team_runs'] = avg_team_runs
+    if 'avg_team_wkts' in input_df.columns:
+        input_df['avg_team_wkts'] = avg_team_wkts
 
-    if col_team in input_df.columns:
-        input_df[col_team] = 1
-    if col_opp in input_df.columns:
-        input_df[col_opp] = 1
-    if col_ven in input_df.columns:
-        input_df[col_ven] = 1
+    # Set one-hot encoded categorical features
+    t_col = f"team_{team_a}"
+    o_col = f"opponent_{team_b}"
+    v_col = f"venue_{venue}"
 
-    # Prediction & probabilities
-    prediction = svm_model.predict(input_df)[0]
-    probas = svm_model.predict_proba(input_df)[0]
-    confidence = max(probas) * 100
+    if t_col in input_df.columns: input_df[t_col] = 1
+    if o_col in input_df.columns: input_df[o_col] = 1
+    if v_col in input_df.columns: input_df[v_col] = 1
 
-    # Output results
-    st.success(f"Predicted Result: **{prediction.upper()}**")
+    # Predict
+    pred = svm_model.predict(input_df)[0]
+    proba = svm_model.predict_proba(input_df)[0]
+    confidence = max(proba) * 100
+
+    st.success(f"Predicted Result: **{pred.upper()}**")
     st.info(f"Prediction Confidence: {confidence:.2f}%")
+
+# --- Squad XI Batch Prediction (Venue Specific) ---
+st.markdown("---")
+st.subheader("🧑‍🤝‍🧑 Squad XI Player Performance Category Prediction (Venue Specific)")
+
+# Load data
+player_stats_df = pd.read_csv(
+    "D:/AI ML Cricket Project CIM model/CIM/data/player_stats_venue.csv"
+)
+df_roles_raw = pd.read_csv(  # Roles dataset (franchise -> player mapping)
+    "D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv"
+)
+
+# Load player performance model & features
+try:
+    pp_model = joblib.load("svm_player_performance_model.pkl")
+    pp_features = joblib.load("svm_player_performance_features.pkl")
+except Exception as e:
+    st.error(f"⚠️ Player performance model or features not found: {e}")
+    st.stop()
+
+# 1️⃣ Select Squad/Franchise
+franchise_display = sorted(df_roles_raw['franchise'].dropna().unique())
+selected_squad = st.selectbox(
+    "Select Your Squad / Franchise",
+    franchise_display,
+    key="squad_xi_franchise"
+)
+
+# 2️⃣ Select Players only from that squad
+squad_players = df_roles_raw[df_roles_raw['franchise'] == selected_squad]['player_name'].dropna().unique().tolist()
+selected_players = st.multiselect(
+    f"Select Playing XI from {selected_squad} (exactly 11 players)",
+    sorted(squad_players),
+    key="squad_xi_players",
+    max_selections=11
+)
+
+# 3️⃣ Select Venue
+venues_list = sorted(player_stats_df['venue'].dropna().unique())
+selected_venue = st.selectbox(
+    "Select Venue",
+    venues_list,
+    key="squad_xi_venue"
+)
+
+# 4️⃣ Predict Button
+if st.button("🟢 Predict Squad XI Performance", key="squad_xi_button"):
+    if len(selected_players) != 11:
+        st.error("Please select exactly 11 players.")
+    else:
+        results = []
+        missing_from_venue = []
+
+        for player in selected_players:
+            # Filter stats for player at this venue
+            p_row = player_stats_df[
+                (player_stats_df['player_name'] == player) &
+                (player_stats_df['venue'] == selected_venue)
+            ]
+
+            if not p_row.empty:
+                role = p_row.iloc[0]['role']
+                runs = p_row.iloc[0]['runs']
+                bat_avg = p_row.iloc[0]['bat_avg']
+                bat_sr = p_row.iloc[0]['bat_sr']
+                wickets = p_row.iloc[0]['wickets']
+                econ = p_row.iloc[0]['econ']
+
+                # Build input data for model
+                input_df = pd.DataFrame(0, index=[0], columns=pp_features)
+                input_df['runs'] = runs if not pd.isna(runs) else 0
+                input_df['bat_avg'] = bat_avg if not pd.isna(bat_avg) else 0
+                input_df['bat_sr'] = bat_sr if not pd.isna(bat_sr) else 0
+                input_df['wickets'] = wickets if not pd.isna(wickets) else 0
+                input_df['econ'] = econ if not pd.isna(econ) else 0
+
+                role_col = f"role_{role}"
+                venue_col = f"venue_{selected_venue}"
+                if role_col in input_df.columns:
+                    input_df[role_col] = 1
+                if venue_col in input_df.columns:
+                    input_df[venue_col] = 1
+
+                # Make prediction
+                pred = pp_model.predict(input_df)[0]
+                proba = pp_model.predict_proba(input_df)[0]
+                confidence = max(proba) * 100
+
+                results.append({
+                    'Squad': selected_squad,
+                    'Player': player,
+                    'Role': role,
+                    'Venue': selected_venue,
+                    'Predicted Category': pred,
+                    'Confidence (%)': f"{confidence:.2f}"
+                })
+            else:
+                missing_from_venue.append(player)
+
+        if results:
+            st.write("### Squad XI Prediction Results")
+            st.dataframe(pd.DataFrame(results))
+
+            # Summary of categories
+            st.write("### Category Summary")
+            st.table(pd.DataFrame(results)['Predicted Category'].value_counts().reset_index().rename(columns={'index':'Category','Predicted Category':'Count'}))
+
+        if missing_from_venue:
+            st.warning(f"No venue stats found for: {', '.join(missing_from_venue)} at {selected_venue}")
+
