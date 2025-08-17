@@ -424,3 +424,110 @@ if st.button("🟢 Predict Squad XI Performance", key="squad_xi_button"):
         if missing_from_venue:
             st.warning(f"No venue stats found for: {', '.join(missing_from_venue)} at {selected_venue}")
 
+#SVM Matchup Model
+import streamlit as st
+import pandas as pd
+import numpy as np
+import joblib
+
+# Load model & features
+try:
+    svm_model = joblib.load('svm_dismissal_model.pkl')
+    model_features = joblib.load('svm_dismissal_features.pkl')
+except Exception as e:
+    st.error(f"Failed to load dismissal SVM model/features: {e}")
+    st.stop()
+
+# Load data
+stats_df = pd.read_csv('D:/AI ML Cricket Project CIM model/CIM/data/ball_by_ball_stats_ap.csv')
+player_roles = pd.read_csv('player_roles_cleaned.csv')
+
+if 'is_wicket' not in stats_df.columns:
+    stats_df['is_wicket'] = (~stats_df['dismissal_type'].isna()).astype(int)
+
+# Dropdown franchises
+franchises = sorted(player_roles['franchise'].dropna().astype(str).unique())
+
+# UI selection
+batting_team = st.selectbox("Select Batting Team", franchises)
+bowling_team = st.selectbox("Select Bowling Team", franchises)
+
+batting_players = sorted(player_roles[player_roles['franchise'] == batting_team]['player_name'].unique())
+bowling_players = sorted(player_roles[player_roles['franchise'] == bowling_team]['player_name'].unique())
+
+batting_xi = st.multiselect("Select Batting XI", batting_players, max_selections=11)
+bowling_xi = st.multiselect("Select Bowling XI", bowling_players, max_selections=11)
+
+venue_list = sorted(stats_df['venue'].dropna().unique())
+phase_list = sorted(stats_df['phase'].dropna().unique())
+
+venue = st.selectbox("Select Venue", venue_list)
+phase = st.selectbox("Select Phase", phase_list)
+
+def build_features(batsman, bowler, venue, phase, stats):
+    mask = (
+        (stats['batsman'] == batsman) &
+        (stats['bowler'] == bowler) &
+        (stats['venue'] == venue)
+    )
+    if phase:
+        mask &= (stats['phase'] == phase)
+    matchup = stats[mask]
+
+    all_bat_matches = stats[stats['batsman'] == batsman].sort_values('date')
+    recent_scores = all_bat_matches.groupby('match_id')['runs_scored'].sum().shift(1).dropna().tail(3)
+    recent_avg = recent_scores.mean() if len(recent_scores) > 0 else 0
+
+    bowler_venue_matches = stats[(stats['bowler'] == bowler) & (stats['venue'] == venue)].sort_values('date')
+    last_5_wickets = bowler_venue_matches['is_wicket'].shift(1).dropna().tail(5).sum() if len(bowler_venue_matches) > 0 else 0
+
+    return {
+        'batsman': batsman,
+        'bowler': bowler,
+        'venue': venue,
+        'phase': phase if phase else "",
+        'recent_form': recent_avg,
+        'bowler_wickets_venue': last_5_wickets
+    }
+
+if st.button("Predict Dismissal Likelihood & Advantage"):
+    if not batting_xi or not bowling_xi:
+        st.warning("Please select players in both teams.")
+    else:
+        insights = []
+        for batsman in batting_xi:
+            for bowler in bowling_xi:
+                features = build_features(batsman, bowler, venue, phase, stats_df)
+                model_df = pd.DataFrame([features], columns=model_features).fillna(0)
+
+                try:
+                    dismissal_prob = svm_model.predict_proba(model_df)[0][1] * 100
+                except Exception:
+                    dismissal_prob = np.nan
+
+                if np.isnan(dismissal_prob):
+                    continue
+
+                if dismissal_prob > 60:
+                    advantage = f"Advantage: {bowler}"
+                elif dismissal_prob < 40:
+                    advantage = f"Advantage: {batsman}"
+                else:
+                    advantage = "Matchup fairly even"
+
+                insight_text = (
+                    f"**{batsman}** has a **{dismissal_prob:.1f}%** chance of being dismissed "
+                    f"by **{bowler}** at **{venue}** in **{phase}**.<br>{advantage}"
+                )
+                insights.append((abs(dismissal_prob - 50), insight_text))
+        if insights:
+            insights.sort(key=lambda x: x[0], reverse=True)
+            st.markdown("### Top Dismissal Matchup Insights")
+            for _, text in insights[:10]:
+                st.markdown(text, unsafe_allow_html=True)
+        else:
+            st.info("No clear dismissal advantages found for selected players.")
+
+
+
+

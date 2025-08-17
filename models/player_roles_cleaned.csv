@@ -1,0 +1,350 @@
+player_name,role,franchise
+Aaron,fast_bowler,
+Abbott,fast_bowler,
+Abdul Basith,fast_bowler,
+Akash Deep,fast_bowler,LSG
+Akash Madhwal,fast_bowler,RR
+Akash Maharaj Singh,fast_bowler,
+Akash Singh,fast_bowler,LSG
+Alzarri Joseph,fast_bowler,
+Anshul Kamboj,fast_bowler,CSK
+Arjun Tendulkar,fast_bowler,MI
+Arshad Khan,fast_bowler,GT
+Arshdeep Singh,fast_bowler,PBKS
+Arshin Kulkarni,fast_bowler,LSG
+Ashwani Kumar,fast_bowler,MI
+Avesh Khan,fast_bowler,LSG
+Azmatullah,fast_bowler,PBKS
+Bartlett,fast_bowler,PBKS
+Basil Thampi,fast_bowler,
+Behrendorff,fast_bowler,
+Bhuvneshwar,fast_bowler,RCB
+Boult,fast_bowler,MI
+Bumrah,fast_bowler,MI
+Chahar,fast_bowler,MI
+Chameera,fast_bowler,DC
+Chetan Sakariya,fast_bowler,
+Corbin Bosch,fast_bowler,
+Coulter-Nile,fast_bowler,
+Cummins,fast_bowler,SRH
+Daniel Sams,fast_bowler,
+Darshan Nalkande,fast_bowler,DC
+Dwayne Bravo,fast_bowler,
+Eshan Malinga,fast_bowler,SRH
+Fazalhaq Farooqi,fast_bowler,RR
+Ferguson,fast_bowler,PBKS
+Gerald Coetzee,fast_bowler,GT
+Gurnoor Brar,fast_bowler,GT
+Harshal Patel,fast_bowler,SRH
+Harshit Rana,fast_bowler,KKR
+Hazlewood,fast_bowler,RCB
+Holder,fast_bowler,
+Ishant,fast_bowler,GT
+J Richardson,fast_bowler,
+Jamie Overton,fast_bowler,CSK
+Jamieson,fast_bowler,
+Jansen,fast_bowler,PBKS
+Jofra Archer,fast_bowler,RR
+Jordan,fast_bowler,
+Joshua Little,fast_bowler,
+K Nagarkoti,fast_bowler,CSK
+Kartik Tyagi,fast_bowler,
+Khaleel Ahmed,fast_bowler,CSK
+Khejroliya,fast_bowler,GT
+KM Asif,fast_bowler,
+Kuldeep Sen,fast_bowler,PBKS
+Kuldip Yadav,fast_bowler,
+Kwena Maphaka,fast_bowler,RR
+Madhav Tiwari,fast_bowler,DC
+Magala,fast_bowler,
+Marco Jansen,fast_bowler,PBKS
+Mark Wood,fast_bowler,
+Matt Henry,fast_bowler,
+Mayank Yadav,fast_bowler,LSG
+Meredith,fast_bowler,
+Mitchell Starc,fast_bowler,DC
+Mohit Sharma,fast_bowler,DC
+Mohsin Khan,fast_bowler,LSG
+Mukesh Choudhary,fast_bowler,CSK
+Mukesh Kumar,fast_bowler,DC
+Mulder,fast_bowler,SRH
+Mustafizur,fast_bowler,
+N Thushara,fast_bowler,RCB
+Nandre Burger,fast_bowler,
+Nathan Ellis,fast_bowler,CSK
+Navdeep Saini,fast_bowler,
+Naveen-ul-Haq,fast_bowler,
+Neesham,fast_bowler,
+Ngidi,fast_bowler,RCB
+Nortje,fast_bowler,KKR
+Obed McCoy,fast_bowler,
+Odean Smith,fast_bowler,
+Parnell,fast_bowler,
+Pathirana,fast_bowler,CSK
+Prasidh,fast_bowler,GT
+Pretorius,fast_bowler,
+Prince Yadav,fast_bowler,LSG
+Rabada,fast_bowler,GT
+Raj Bawa,fast_bowler,MI
+Rasikh Salam,fast_bowler,RCB
+Richard Gleeson,fast_bowler,
+Rishi Dhawan,fast_bowler,
+RS Hangargekar,fast_bowler,LSG
+S Kaul,fast_bowler,
+Sakariya,fast_bowler,
+Sam Curran,fast_bowler,CSK
+Sandeep,fast_bowler,RR
+Sandeep Sharma,fast_bowler,RR
+Sangwan,fast_bowler,
+Satyanarayana Raju,fast_bowler,MI
+Shamar Joseph,fast_bowler,LSG
+Shami,fast_bowler,SRH
+Shepherd,fast_bowler,RCB
+Shivam Mavi,fast_bowler,
+Simarjeet Singh,fast_bowler,SRH
+Siraj,fast_bowler,GT
+Southee,fast_bowler,
+Spencer Johnson,fast_bowler,KKR
+T Natarajan,fast_bowler,DC
+Tanush Kotian,fast_bowler,
+Thakur,fast_bowler,LSG
+Topley,fast_bowler,MI
+Tushar Deshpande,fast_bowler,RR
+Tye,fast_bowler,
+Tymal Mills,fast_bowler,
+Umesh Yadav,fast_bowler,GT
+Umran Malik,fast_bowler,KKR
+Unadkat,fast_bowler,SRH
+Vaibhav Arora,fast_bowler,KKR
+Vijaykumar Vyshak,fast_bowler,PBKS
+Warrier,fast_bowler,
+Wiese,fast_bowler,
+Willey,fast_bowler,
+William ORourke,fast_bowler,
+Lizard Williams,fast_bowler,MI
+Wood,fast_bowler,
+Yash Dayal,fast_bowler,RCB
+Yash Thakur,fast_bowler,PBKS
+Yudhvir Singh,fast_bowler,
+Abdul Samad,finisher,LSG
+Abhinav Manohar,finisher,SRH
+Aniket Verma,finisher,SRH
+Ashutosh Sharma,finisher,DC
+Hardik Pandya,finisher,MI
+Hetmyer,finisher,RR
+Miller,finisher,LSG
+Milne,finisher,
+Naman Dhir,middle_order,MI
+Pollard,finisher,
+Rahul Tewatia,finisher,GT
+Ramandeep Singh,finisher,KKR
+Rinku Singh,finisher,KKR
+Russell,finisher,KKR
+Shahrukh Khan,finisher,GT
+Shashank Singh,finisher,PBKS
+Shubham Dubey,finisher,RR
+Tim David,finisher,RCB
+Tristan Stubbs,finisher,DC
+Aman Hakim Khan,middle_order,
+Angkrish Raghuvanshi,middle_order,KKR
+Ayush Badoni,middle_order,LSG
+Bhandage,middle_order,RCB
+Billings,middle_order,
+Brevis,middle_order,CSK
+Daryl Mitchell,middle_order,
+Ferreira,middle_order,DC
+Glenn Phillips,middle_order,GT
+Gulbadin,middle_order,
+Harry Brook,middle_order,DC
+Hooda,middle_order,CSK
+Kamindu Mendis,middle_order,SRH
+Karan Sharma,middle_order,
+Karim Janat,middle_order,GT
+Kedar Jadhav,middle_order,
+Livingstone,middle_order,RCB
+Lomror,middle_order,GT
+Mandeep,middle_order,
+Manish Pandey,middle_order,KKR
+Maxwell,middle_order,PBKS
+Mitchell Owen,middle_order,
+Mohit Rathee,middle_order,RCB
+Musheer Khan,middle_order,PBKS
+Nehal Wadhera,middle_order,PBKS
+Nitish Rana,middle_order,RR
+Nitish Reddy,middle_order,SRH
+Parag,middle_order,RR
+Pooran,middle_order,LSG
+Powell,middle_order,KKR
+Prabhudessai,middle_order,
+Priyam Garg,middle_order,
+Rajat Patidar,middle_order,RCB
+Rayudu,middle_order,
+Ripal Patel,middle_order,
+Riyan Parag,middle_order,RR
+Rutherford,middle_order,GT
+Sameer Rizvi,middle_order,DC
+Sanvir Singh,middle_order,
+Sarfaraz Khan,middle_order,
+Shanaka,middle_order,
+Shankar,middle_order,CSK
+Shivam Dube,middle_order,CSK
+Shreyas Iyer,middle_order,PBKS
+Stoinis,middle_order,PBKS
+Stokes,middle_order,
+Sumit Kumar,middle_order,
+Suryakumar Yadav,middle_order,MI
+Suryansh Shedge,middle_order,PBKS
+Tilak Varma,middle_order,MI
+Urvil Patel,middle_order,CSK
+Venkatesh Iyer,middle_order,KKR
+Vivrant Sharma,middle_order,
+Vohra,middle_order,
+Abhijeet Tomar,opener,
+Abhishek Sharma,opener,SRH
+Anmolpreet Singh,opener,
+Atharva Taide,opener,SRH
+Ayush Mhatre,opener,CSK
+Bhui,opener,
+Breetzke,opener,LSG
+Conway,opener,CSK
+Dhawan,opener,
+du Plessis,opener,DC
+Finch,opener,
+Fraser-McGurk,opener,DC
+Gaikwad,opener,CSK
+Green,opener,
+Harpreet Singh,opener,
+Head,opener,SRH
+Jacob Bethell,opener,RCB
+Jaiswal,opener,RR
+Karun Nair,opener,DC
+Kohler-Cadmore,opener,
+Kohli,opener,RCB
+Lewis,opener,
+Markram,opener,LSG
+Mayank Agarawal,opener,
+Mayers,opener,
+Mitchell Marsh,opener,LSG
+Padikkal,opener,RCB
+Prabhsimran,opener,PBKS
+Prerak Mankad,opener,
+Prithvi Shaw,opener,
+Priyansh Arya,opener,PBKS
+Rahane,opener,KKR
+Ravindra,opener,CSK
+Rohit,opener,MI
+Root,opener,
+Rossouw,opener,
+Roy,opener,
+Sai Sudharsan,opener,GT
+Saurav Chauhan,opener,
+Sediqullah Atal,opener,
+Shaik Rasheed,opener,CSK
+Shivam Singh,opener,
+Short,opener,
+Shubman Gill,opener,GT
+Tripathi,opener,CSK
+Turner,opener,
+Uthappa,opener,
+Vaibhav Suryavanshi,opener,RR
+van der Dussen,opener,
+Warner,opener,
+Will Jacks,opener,MI
+Williamson,opener,
+Yash Dhull,opener,
+Adil Rashid,spinner,
+Akeal Hosein,spinner,
+Anukul Roy,spinner,KKR
+Ashwin,spinner,CSK
+Axar,spinner,DC
+Chahal,spinner,PBKS
+Chawla,spinner,
+Digvesh Rathi,spinner,LSG
+Fabian Allen,spinner,
+Gowtham,spinner,
+Harpreet Brar,spinner,PBKS
+Harsh Dubey,spinner,SRH
+Hasaranga,spinner,RR
+Himanshu Sharma,spinner,LSG
+Hrithik Shokeen,spinner,
+J Suchith,spinner,
+Jadeja,spinner,CSK
+Jayant Yadav,spinner,GT
+Karan Sharma,middle_order,
+Karn Sharma,spinner,MI
+Kumar Kartikeya,spinner,RR
+Kaverappa,spinner,
+Krunal Pandya,spinner,RCB
+Kuldeep Yadav,spinner,DC
+Lalit Yadav,spinner,
+M Bracewell,spinner,
+M Siddharth,spinner,LSG
+Maharaj,spinner,
+Manav Suthar,spinner,GT
+Markande,spinner,KKR
+Mayank Dagar,spinner,
+Mishra,spinner,
+Moeen Ali,spinner,KKR
+Mujeeb,spinner,MI
+Murugan Ashwin,spinner,
+Nabi,spinner,
+Narine,spinner,KKR
+Noor Ahmad,spinner,CSK
+Praveen Dubey,spinner,PBKS
+Raghav Goyal,spinner,
+Rahul Chahar,spinner,SRH
+Rashid Khan,spinner,GT
+Ravi Bishnoi,spinner,LSG
+Raza,spinner,
+Sai Kishore,spinner,GT
+Sanjay Yadav,spinner,
+Santner,spinner,MI
+Shahbaz Ahmed,spinner,LSG
+Shams Mulani,spinner,
+Shreyas Gopal,spinner,CSK
+Solanki,spinner,
+Suyash Sharma,spinner,RCB
+Swapnil Singh,spinner,RCB
+Theekshana,spinner,RR
+V Viyaskanth,spinner,
+Varun Chakaravarthy,spinner,KKR
+Vignesh Puthur,spinner,MI
+Vipraj Nigam,spinner,DC
+Washington Sundar,spinner,GT
+Zampa,spinner,SRH
+Zeeshan Ansari,spinner,SRH
+N Jagadeesan,wicket_keeper,
+Pant,wicket_keeper,LSG
+Philip Salt,wicket_keeper,RCB
+Rahul,wicket_keeper,DC
+Rajapaksa,wicket_keeper,
+Rickelton,wicket_keeper,MI
+Robin Minz,wicket_keeper,MI
+Saha,wicket_keeper,
+Samson,wicket_keeper,RR
+Seifert,wicket_keeper,
+Shai Hope,wicket_keeper,
+Sharath BR,wicket_keeper,
+Srikar Bharat,wicket_keeper,
+Vishnu Vinod,wicket_keeper,PBKS
+W Saha,wicket_keeper,
+Wade,wicket_keeper,
+Abishek Porel,wicket_keeper,DC
+Anuj Rawat,wicket_keeper,GT
+Bairstow,wicket_keeper,
+Buttler,wicket_keeper,GT
+de Kock,wicket_keeper,KKR
+Dhoni,wicket_keeper,CSK
+Dhruv Jurel,wicket_keeper,RR
+Gurbaz,wicket_keeper,KKR
+Indrajith,wicket_keeper,
+Ishan Kishan,middle_order,SRH
+Jackson,wicket_keeper,
+Jitesh Sharma,wicket_keeper,RCB
+Josh Inglis,wicket_keeper,PBKS
+Karthik,wicket_keeper,
+Klaasen,wicket_keeper,SRH
+KS Rathore,wicket_keeper,
+Kusal Mendis,wicket_keeper,
+Kushagra,wicket_keeper,GT
+Litton Das,wicket_keeper,
