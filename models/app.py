@@ -425,61 +425,69 @@ if st.button("🟢 Predict Squad XI Performance", key="squad_xi_button"):
             st.warning(f"No venue stats found for: {', '.join(missing_from_venue)} at {selected_venue}")
 
 #SVM Matchup Model
+# SVM Matchup Model - Corrected Batting vs Bowling Logic
 import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
 
-# Load model & features
+# ---------------------------------------------
+# Load trained SVM model and feature list
+# ---------------------------------------------
 try:
     svm_model = joblib.load('svm_dismissal_model.pkl')
     model_features = joblib.load('svm_dismissal_features.pkl')
 except Exception as e:
-    st.error(f"Failed to load dismissal SVM model/features: {e}")
+    st.error(f"❌ Failed to load SVM model or features: {e}")
     st.stop()
 
+# ---------------------------------------------
 # Load data
+# ---------------------------------------------
 stats_df = pd.read_csv('D:/AI ML Cricket Project CIM model/CIM/data/ball_by_ball_stats_ap.csv')
 player_roles = pd.read_csv('player_roles_cleaned.csv')
 
 if 'is_wicket' not in stats_df.columns:
     stats_df['is_wicket'] = (~stats_df['dismissal_type'].isna()).astype(int)
 
-# Dropdown franchises
+# ---------------------------------------------
+# Streamlit UI
+# ---------------------------------------------
+st.title("🏏 SVM-Based Dismissal Matchup Predictor")
+
 franchises = sorted(player_roles['franchise'].dropna().astype(str).unique())
 
-# UI selection
-batting_team = st.selectbox("Select Batting Team", franchises)
-bowling_team = st.selectbox("Select Bowling Team", franchises)
+batting_team = st.selectbox("🏏 Select Batting Team", franchises)
+bowling_team = st.selectbox("🎯 Select Bowling Team", franchises)
 
-batting_players = sorted(player_roles[player_roles['franchise'] == batting_team]['player_name'].unique())
-bowling_players = sorted(player_roles[player_roles['franchise'] == bowling_team]['player_name'].unique())
+batting_players = sorted(
+    player_roles[player_roles['franchise'] == batting_team]['player_name'].unique()
+)
+bowling_players = sorted(
+    player_roles[player_roles['franchise'] == bowling_team]['player_name'].unique()
+)
 
-batting_xi = st.multiselect("Select Batting XI", batting_players, max_selections=11)
-bowling_xi = st.multiselect("Select Bowling XI", bowling_players, max_selections=11)
+batting_xi = st.multiselect("Select Batting XI (max 11)", batting_players, max_selections=11)
+bowling_xi = st.multiselect("Select Bowling XI (max 11)", bowling_players, max_selections=11)
 
 venue_list = sorted(stats_df['venue'].dropna().unique())
 phase_list = sorted(stats_df['phase'].dropna().unique())
 
-venue = st.selectbox("Select Venue", venue_list)
-phase = st.selectbox("Select Phase", phase_list)
+venue = st.selectbox("🏟️ Select Venue", venue_list)
+phase = st.selectbox("⚡ Select Phase", phase_list)
 
+# ---------------------------------------------
+# Helper function to build features for model
+# ---------------------------------------------
 def build_features(batsman, bowler, venue, phase, stats):
-    mask = (
-        (stats['batsman'] == batsman) &
-        (stats['bowler'] == bowler) &
-        (stats['venue'] == venue)
-    )
-    if phase:
-        mask &= (stats['phase'] == phase)
-    matchup = stats[mask]
-
-    all_bat_matches = stats[stats['batsman'] == batsman].sort_values('date')
-    recent_scores = all_bat_matches.groupby('match_id')['runs_scored'].sum().shift(1).dropna().tail(3)
+    # Recent batting form (avg of last 3 innings)
+    bat_matches = stats[stats['batsman'] == batsman].sort_values('date')
+    recent_scores = bat_matches.groupby('match_id')['runs_scored'].sum().shift(1).dropna().tail(3)
     recent_avg = recent_scores.mean() if len(recent_scores) > 0 else 0
 
-    bowler_venue_matches = stats[(stats['bowler'] == bowler) & (stats['venue'] == venue)].sort_values('date')
-    last_5_wickets = bowler_venue_matches['is_wicket'].shift(1).dropna().tail(5).sum() if len(bowler_venue_matches) > 0 else 0
+    # Bowler’s recent wicket trend at this venue (last 5 balls)
+    bowler_venue = stats[(stats['bowler'] == bowler) & (stats['venue'] == venue)].sort_values('date')
+    last5_wkts = bowler_venue['is_wicket'].shift(1).dropna().tail(5).sum() if len(bowler_venue) > 0 else 0
 
     return {
         'batsman': batsman,
@@ -487,47 +495,150 @@ def build_features(batsman, bowler, venue, phase, stats):
         'venue': venue,
         'phase': phase if phase else "",
         'recent_form': recent_avg,
-        'bowler_wickets_venue': last_5_wickets
+        'bowler_wickets_venue': last5_wkts
     }
 
-if st.button("Predict Dismissal Likelihood & Advantage"):
+# ---------------------------------------------
+# Prediction Logic
+# ---------------------------------------------
+if st.button("🔮 Predict Dismissal Likelihood & Advantage"):
     if not batting_xi or not bowling_xi:
-        st.warning("Please select players in both teams.")
+        st.warning("⚠️ Please select at least one player from both batting and bowling teams.")
     else:
         insights = []
+
+        # ✅ Only batsmen (batting XI) vs bowlers (bowling XI)
         for batsman in batting_xi:
             for bowler in bowling_xi:
                 features = build_features(batsman, bowler, venue, phase, stats_df)
                 model_df = pd.DataFrame([features], columns=model_features).fillna(0)
 
                 try:
-                    dismissal_prob = svm_model.predict_proba(model_df)[0][1] * 100
+                    prob = svm_model.predict_proba(model_df)[0][1] * 100
                 except Exception:
-                    dismissal_prob = np.nan
+                    prob = np.nan
 
-                if np.isnan(dismissal_prob):
+                if np.isnan(prob):
                     continue
 
-                if dismissal_prob > 60:
-                    advantage = f"Advantage: {bowler}"
-                elif dismissal_prob < 40:
-                    advantage = f"Advantage: {batsman}"
-                else:
-                    advantage = "Matchup fairly even"
+                # Only show when model believes dismissal is likely (≥70%)
+                if prob >= 0:
+                    insight = (
+                        f"**{batsman}** has a **{prob:.1f}%** chance of being dismissed "
+                        f"by **{bowler}** at **{venue}** in **{phase}**.<br>"
+                        f"🎯 Advantage: **{bowler}**"
+                    )
+                    insights.append((prob, insight))
 
-                insight_text = (
-                    f"**{batsman}** has a **{dismissal_prob:.1f}%** chance of being dismissed "
-                    f"by **{bowler}** at **{venue}** in **{phase}**.<br>{advantage}"
-                )
-                insights.append((abs(dismissal_prob - 50), insight_text))
+        # ---------------------------------------------
+        # Display Top Matchups
+        # ---------------------------------------------
         if insights:
             insights.sort(key=lambda x: x[0], reverse=True)
-            st.markdown("### Top Dismissal Matchup Insights")
+            st.markdown("### 🔥 Top High-Risk Dismissal Matchups (≥40%)")
             for _, text in insights[:10]:
                 st.markdown(text, unsafe_allow_html=True)
         else:
-            st.info("No clear dismissal advantages found for selected players.")
+            st.info("😎 No strong (≥40%) dismissal matchups found for these teams.")
 
 
+#XBoost Matchup Model
 
+# app.py
+import streamlit as st
+import pandas as pd
+import numpy as np
+import joblib
+
+# --------------------------------
+# Load Model & Data
+# --------------------------------
+try:
+    model = joblib.load("xgb_dismissal_model.pkl")
+    encoders = joblib.load("xgb_label_encoders.pkl")
+    features = joblib.load("xgb_model_features.pkl")
+except Exception as e:
+    st.error(f"Error loading model files: {e}")
+    st.stop()
+
+stats_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/ball_by_ball_stats_ap.csv")
+roles_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv")
+
+# --------------------------------
+# Data Preparation
+# --------------------------------
+if "is_wicket" not in stats_df.columns:
+    stats_df["is_wicket"] = (~stats_df["dismissal_type"].isna()).astype(int)
+
+# --------------------------------
+# Streamlit UI
+# --------------------------------
+st.title("🏏 Dismissal Prediction Model (XGBoost)")
+st.markdown("### Predict the chance of a **batsman getting dismissed by a bowler** under given conditions.")
+
+franchises = sorted(roles_df["franchise"].dropna().unique())
+
+batting_team = st.selectbox("Select Batting Team", franchises)
+bowling_team = st.selectbox("Select Bowling Team", franchises)
+
+batters = sorted(roles_df[roles_df["franchise"] == batting_team]["player_name"].unique())
+bowlers = sorted(roles_df[roles_df["franchise"] == bowling_team]["player_name"].unique())
+
+batting_xi = st.multiselect("Select Batting XI", batters, max_selections=11)
+bowling_xi = st.multiselect("Select Bowling XI", bowlers, max_selections=11)
+
+venue_list = sorted(stats_df["venue"].dropna().unique())
+phase_list = sorted(stats_df["phase"].dropna().unique())
+
+venue = st.selectbox("Select Venue", venue_list)
+phase = st.selectbox("Select Phase", phase_list)
+
+# --------------------------------
+# Build Input Features
+# --------------------------------
+def build_features(batsman, bowler, venue, phase, stats):
+    recent_bat_form = stats[stats["batsman"] == batsman]["runs_scored"].tail(3).mean()
+    bowler_form = stats[stats["bowler"] == bowler]["is_wicket"].tail(10).sum()
+
+    return {
+        "batsman": batsman,
+        "bowler": bowler,
+        "venue": venue,
+        "phase": phase,
+        "recent_bat_form": recent_bat_form if not np.isnan(recent_bat_form) else 0,
+        "bowler_form": bowler_form if not np.isnan(bowler_form) else 0
+    }
+
+# --------------------------------
+# Prediction
+# --------------------------------
+if st.button("🎯 Predict Dismissal Matchups"):
+    if not batting_xi or not bowling_xi:
+        st.warning("Please select both batting and bowling XI.")
+    else:
+        insights = []
+        for batsman in batting_xi:
+            for bowler in bowling_xi:
+                feats = build_features(batsman, bowler, venue, phase, stats_df)
+                input_df = pd.DataFrame([feats])
+
+                # Encode categoricals
+                for col in ["batsman", "bowler", "venue", "phase"]:
+                    if feats[col] in encoders[col].classes_:
+                        input_df[col] = encoders[col].transform([feats[col]])
+                    else:
+                        input_df[col] = [0]  # fallback for unseen
+
+                prob = model.predict_proba(input_df[features])[0][1] * 100
+
+                if prob >= 70:  # only show strong dismissal chances
+                    insights.append((prob, batsman, bowler))
+
+        if insights:
+            insights.sort(key=lambda x: x[0], reverse=True)
+            st.subheader("🔥 Top Dismissal Matchups (>70% Chance)")
+            for prob, batsman, bowler in insights[:10]:
+                st.markdown(f"**{batsman}** has a **{prob:.1f}%** chance of being dismissed by **{bowler}** at **{venue}** in **{phase}**.")
+        else:
+            st.info("No high dismissal matchups (>70%) found for this selection.")
 
