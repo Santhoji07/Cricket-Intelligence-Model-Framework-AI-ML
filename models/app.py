@@ -124,7 +124,65 @@ if st.button("Select Best XI"):
     except Exception as e:
         st.error(str(e))
 
-# ---------- Step 2: Opponent & Apriori ----------
+#SVM Matchup Model
+# ---------- Step 3: Squad XI Performance Prediction (SVM Model Integration) ----------
+import joblib
+
+if 'best_xi' in st.session_state:
+    st.markdown("---")
+    st.subheader("📊 Squad XI Performance Prediction (SVM Model)")
+
+    # Button to trigger the prediction
+    if st.button("🔮 Generate Squad XI Performance Prediction"):
+        try:
+            # Load model and features
+            perf_model = joblib.load("svm_player_performance_model.pkl")
+            perf_features = joblib.load("svm_player_performance_features.pkl")
+        except Exception as e:
+            st.error(f"❌ Could not load SVM performance model: {e}")
+            st.stop()
+
+        # Prepare features from GA Best XI
+        best_xi_df = st.session_state.best_xi.copy()
+        best_xi_df['venue'] = input_venue  # Add venue context
+
+        # One-hot encode 'role' and 'venue' same as training
+        cat_encoded = pd.get_dummies(best_xi_df[['role', 'venue']])
+        num_cols = ['runs', 'bat_avg', 'bat_sr', 'wickets', 'econ']
+        num_encoded = best_xi_df[num_cols]
+
+        X_pred = pd.concat([cat_encoded, num_encoded], axis=1)
+
+        # Align columns with training features
+        for col in perf_features:
+            if col not in X_pred.columns:
+                X_pred[col] = 0
+        X_pred = X_pred[perf_features]
+
+        # Run prediction
+        preds = perf_model.predict(X_pred)
+        best_xi_df['Predicted_Performance'] = preds
+
+        # Display results
+        show_df = best_xi_df[['player_name', 'role', 'matches', 'runs', 'bat_avg', 'bat_sr',
+                              'wickets', 'econ', 'Predicted_Performance']]
+        show_df = format_floats(sort_by_role(format_roles(show_df)))
+        st.dataframe(show_df, use_container_width=True)
+
+        # Summary counts
+        perf_summary = show_df['Predicted_Performance'].value_counts().reset_index()
+        perf_summary.columns = ['Performance Category', 'Count']
+        st.subheader("Performance Summary")
+        st.dataframe(perf_summary, use_container_width=True)
+
+        st.success("✅ Player performance predictions generated successfully!")
+    else:
+        st.info("Click the button above to generate Squad XI performance predictions.")
+
+
+
+
+# ----------  Opponent & Apriori ----------
 if 'best_xi' in st.session_state:
     st.markdown("---")
     st.subheader("Opponent Setup (for Apriori Analysis)")
@@ -236,409 +294,88 @@ if 'best_xi' in st.session_state:
             except Exception as e:
                 st.error(f"Apriori error: {e}")
 
-# ---------- Step 3: SVM Match Outcome Prediction ----------
-import streamlit as st
-import pandas as pd
-import joblib
 
-st.set_page_config(page_title="Cricket Match Outcome Predictor", layout="centered")
-
-# ---------- Load saved model ----------
-try:
-    svm_model = joblib.load("svm_match_outcome_model.pkl")
-    feature_cols = joblib.load("svm_match_outcome_features.pkl")
-except:
-    st.error("⚠️ Model not found. Please run svm_match_outcome.py first.")
-    st.stop()
-
-# ---------- Load datasets ----------
-player_roles_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv")
-player_stats_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_stats_venue.csv")
-
-# Remove NaN and ensure all are strings
-team_list = sorted(
-    player_roles_df['franchise']
-    .dropna()              # remove missing values
-    .astype(str)           # ensure string type
-    .unique()
-)
-
-venue_list = sorted(player_stats_df['venue'].unique())
-
-st.title("🏏 Match Outcome Prediction (SVM)")
-
-# ---------- Select teams and venue ----------
-team_a = st.selectbox("Select Your Team (GA Best XI)", team_list)
-team_b = st.selectbox("Select Opponent Team (Apriori Insights)", team_list)
-venue = st.selectbox("Select Match Venue", venue_list)
-
-# ---------- Calculate average stats ----------
-def calculate_team_averages(team_name):
-    players = player_roles_df[player_roles_df['franchise'] == team_name]['player_name']
-    stats = player_stats_df[player_stats_df['player_name'].isin(players)]
-    avg_runs = stats['runs'].mean() if not stats.empty else 0
-    avg_wkts = stats['wickets'].mean() if not stats.empty else 0
-    return round(avg_runs, 2), round(avg_wkts, 2)
-
-avg_runs, avg_wkts = calculate_team_averages(team_a)
-
-# Allow manual override
-avg_team_runs = st.number_input("Average Team Runs (adjust if needed)", value=avg_runs, step=0.1)
-avg_team_wkts = st.number_input("Average Team Wickets (adjust if needed)", value=avg_wkts, step=0.1)
-
-# ---------- Predict ----------
-if st.button("🔮 Predict Outcome"):
-    # Create input dataframe with all 0s
-    input_df = pd.DataFrame(0, index=[0], columns=feature_cols)
-
-    # Fill in numeric features
-    if 'avg_team_runs' in input_df.columns:
-        input_df['avg_team_runs'] = avg_team_runs
-    if 'avg_team_wkts' in input_df.columns:
-        input_df['avg_team_wkts'] = avg_team_wkts
-
-    # Set one-hot encoded categorical features
-    t_col = f"team_{team_a}"
-    o_col = f"opponent_{team_b}"
-    v_col = f"venue_{venue}"
-
-    if t_col in input_df.columns: input_df[t_col] = 1
-    if o_col in input_df.columns: input_df[o_col] = 1
-    if v_col in input_df.columns: input_df[v_col] = 1
-
-    # Predict
-    pred = svm_model.predict(input_df)[0]
-    proba = svm_model.predict_proba(input_df)[0]
-    confidence = max(proba) * 100
-
-    st.success(f"Predicted Result: **{pred.upper()}**")
-    st.info(f"Prediction Confidence: {confidence:.2f}%")
-
-# --- Squad XI Batch Prediction (Venue Specific) ---
-st.markdown("---")
-st.subheader("🧑‍🤝‍🧑 Squad XI Player Performance Category Prediction (Venue Specific)")
-
-# Load data
-player_stats_df = pd.read_csv(
-    "D:/AI ML Cricket Project CIM model/CIM/data/player_stats_venue.csv"
-)
-df_roles_raw = pd.read_csv(  # Roles dataset (franchise -> player mapping)
-    "D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv"
-)
-
-# Load player performance model & features
-try:
-    pp_model = joblib.load("svm_player_performance_model.pkl")
-    pp_features = joblib.load("svm_player_performance_features.pkl")
-except Exception as e:
-    st.error(f"⚠️ Player performance model or features not found: {e}")
-    st.stop()
-
-# 1️⃣ Select Squad/Franchise
-franchise_display = sorted(df_roles_raw['franchise'].dropna().unique())
-selected_squad = st.selectbox(
-    "Select Your Squad / Franchise",
-    franchise_display,
-    key="squad_xi_franchise"
-)
-
-# 2️⃣ Select Players only from that squad
-squad_players = df_roles_raw[df_roles_raw['franchise'] == selected_squad]['player_name'].dropna().unique().tolist()
-selected_players = st.multiselect(
-    f"Select Playing XI from {selected_squad} (exactly 11 players)",
-    sorted(squad_players),
-    key="squad_xi_players",
-    max_selections=11
-)
-
-# 3️⃣ Select Venue
-venues_list = sorted(player_stats_df['venue'].dropna().unique())
-selected_venue = st.selectbox(
-    "Select Venue",
-    venues_list,
-    key="squad_xi_venue"
-)
-
-# 4️⃣ Predict Button
-if st.button("🟢 Predict Squad XI Performance", key="squad_xi_button"):
-    if len(selected_players) != 11:
-        st.error("Please select exactly 11 players.")
-    else:
-        results = []
-        missing_from_venue = []
-
-        for player in selected_players:
-            # Filter stats for player at this venue
-            p_row = player_stats_df[
-                (player_stats_df['player_name'] == player) &
-                (player_stats_df['venue'] == selected_venue)
-            ]
-
-            if not p_row.empty:
-                role = p_row.iloc[0]['role']
-                runs = p_row.iloc[0]['runs']
-                bat_avg = p_row.iloc[0]['bat_avg']
-                bat_sr = p_row.iloc[0]['bat_sr']
-                wickets = p_row.iloc[0]['wickets']
-                econ = p_row.iloc[0]['econ']
-
-                # Build input data for model
-                input_df = pd.DataFrame(0, index=[0], columns=pp_features)
-                input_df['runs'] = runs if not pd.isna(runs) else 0
-                input_df['bat_avg'] = bat_avg if not pd.isna(bat_avg) else 0
-                input_df['bat_sr'] = bat_sr if not pd.isna(bat_sr) else 0
-                input_df['wickets'] = wickets if not pd.isna(wickets) else 0
-                input_df['econ'] = econ if not pd.isna(econ) else 0
-
-                role_col = f"role_{role}"
-                venue_col = f"venue_{selected_venue}"
-                if role_col in input_df.columns:
-                    input_df[role_col] = 1
-                if venue_col in input_df.columns:
-                    input_df[venue_col] = 1
-
-                # Make prediction
-                pred = pp_model.predict(input_df)[0]
-                proba = pp_model.predict_proba(input_df)[0]
-                confidence = max(proba) * 100
-
-                results.append({
-                    'Squad': selected_squad,
-                    'Player': player,
-                    'Role': role,
-                    'Venue': selected_venue,
-                    'Predicted Category': pred,
-                    'Confidence (%)': f"{confidence:.2f}"
-                })
-            else:
-                missing_from_venue.append(player)
-
-        if results:
-            st.write("### Squad XI Prediction Results")
-            st.dataframe(pd.DataFrame(results))
-
-            # Summary of categories
-            st.write("### Category Summary")
-            st.table(pd.DataFrame(results)['Predicted Category'].value_counts().reset_index().rename(columns={'index':'Category','Predicted Category':'Count'}))
-
-        if missing_from_venue:
-            st.warning(f"No venue stats found for: {', '.join(missing_from_venue)} at {selected_venue}")
-
-#SVM Matchup Model
-# SVM Matchup Model - Corrected Batting vs Bowling Logic
-import streamlit as st
-import pandas as pd
-import numpy as np
-import joblib
-
-# ---------------------------------------------
-# Load trained SVM model and feature list
-# ---------------------------------------------
-try:
-    svm_model = joblib.load('svm_dismissal_model.pkl')
-    model_features = joblib.load('svm_dismissal_features.pkl')
-except Exception as e:
-    st.error(f"❌ Failed to load SVM model or features: {e}")
-    st.stop()
-
-# ---------------------------------------------
-# Load data
-# ---------------------------------------------
-stats_df = pd.read_csv('D:/AI ML Cricket Project CIM model/CIM/data/ball_by_ball_stats_ap.csv')
-player_roles = pd.read_csv('player_roles_cleaned.csv')
-
-if 'is_wicket' not in stats_df.columns:
-    stats_df['is_wicket'] = (~stats_df['dismissal_type'].isna()).astype(int)
-
-# ---------------------------------------------
-# Streamlit UI
-# ---------------------------------------------
-st.title("🏏 SVM-Based Dismissal Matchup Predictor")
-
-franchises = sorted(player_roles['franchise'].dropna().astype(str).unique())
-
-batting_team = st.selectbox("🏏 Select Batting Team", franchises)
-bowling_team = st.selectbox("🎯 Select Bowling Team", franchises)
-
-batting_players = sorted(
-    player_roles[player_roles['franchise'] == batting_team]['player_name'].unique()
-)
-bowling_players = sorted(
-    player_roles[player_roles['franchise'] == bowling_team]['player_name'].unique()
-)
-
-batting_xi = st.multiselect("Select Batting XI (max 11)", batting_players, max_selections=11)
-bowling_xi = st.multiselect("Select Bowling XI (max 11)", bowling_players, max_selections=11)
-
-venue_list = sorted(stats_df['venue'].dropna().unique())
-phase_list = sorted(stats_df['phase'].dropna().unique())
-
-venue = st.selectbox("🏟️ Select Venue", venue_list)
-phase = st.selectbox("⚡ Select Phase", phase_list)
-
-# ---------------------------------------------
-# Helper function to build features for model
-# ---------------------------------------------
-def build_features(batsman, bowler, venue, phase, stats):
-    # Recent batting form (avg of last 3 innings)
-    bat_matches = stats[stats['batsman'] == batsman].sort_values('date')
-    recent_scores = bat_matches.groupby('match_id')['runs_scored'].sum().shift(1).dropna().tail(3)
-    recent_avg = recent_scores.mean() if len(recent_scores) > 0 else 0
-
-    # Bowler’s recent wicket trend at this venue (last 5 balls)
-    bowler_venue = stats[(stats['bowler'] == bowler) & (stats['venue'] == venue)].sort_values('date')
-    last5_wkts = bowler_venue['is_wicket'].shift(1).dropna().tail(5).sum() if len(bowler_venue) > 0 else 0
-
-    return {
-        'batsman': batsman,
-        'bowler': bowler,
-        'venue': venue,
-        'phase': phase if phase else "",
-        'recent_form': recent_avg,
-        'bowler_wickets_venue': last5_wkts
-    }
-
-# ---------------------------------------------
-# Prediction Logic
-# ---------------------------------------------
-if st.button("🔮 Predict Dismissal Likelihood & Advantage"):
-    if not batting_xi or not bowling_xi:
-        st.warning("⚠️ Please select at least one player from both batting and bowling teams.")
-    else:
-        insights = []
-
-        # ✅ Only batsmen (batting XI) vs bowlers (bowling XI)
-        for batsman in batting_xi:
-            for bowler in bowling_xi:
-                features = build_features(batsman, bowler, venue, phase, stats_df)
-                model_df = pd.DataFrame([features], columns=model_features).fillna(0)
-
-                try:
-                    prob = svm_model.predict_proba(model_df)[0][1] * 100
-                except Exception:
-                    prob = np.nan
-
-                if np.isnan(prob):
-                    continue
-
-                # Only show when model believes dismissal is likely (≥70%)
-                if prob >= 0:
-                    insight = (
-                        f"**{batsman}** has a **{prob:.1f}%** chance of being dismissed "
-                        f"by **{bowler}** at **{venue}** in **{phase}**.<br>"
-                        f"🎯 Advantage: **{bowler}**"
-                    )
-                    insights.append((prob, insight))
-
-        # ---------------------------------------------
-        # Display Top Matchups
-        # ---------------------------------------------
-        if insights:
-            insights.sort(key=lambda x: x[0], reverse=True)
-            st.markdown("### 🔥 Top High-Risk Dismissal Matchups (≥40%)")
-            for _, text in insights[:10]:
-                st.markdown(text, unsafe_allow_html=True)
-        else:
-            st.info("😎 No strong (≥40%) dismissal matchups found for these teams.")
 
 
 #XBoost Matchup Model
 
-# app.py
-import streamlit as st
-import pandas as pd
-import numpy as np
+# ---------------------------------------------------------------------
+# ---------- Step 4: Dismissal Prediction (XGBoost Model Integration) ----------
+# ---------------------------------------------------------------------
 import joblib
+import numpy as np
 
-# --------------------------------
-# Load Model & Data
-# --------------------------------
-try:
-    model = joblib.load("xgb_dismissal_model.pkl")
-    encoders = joblib.load("xgb_label_encoders.pkl")
-    features = joblib.load("xgb_model_features.pkl")
-except Exception as e:
-    st.error(f"Error loading model files: {e}")
-    st.stop()
+if 'best_xi' in st.session_state and 'opponent_xi' in st.session_state:
+    st.markdown("---")
+    st.subheader("🎯 XGBoost-Based Dismissal Matchup Prediction")
 
-stats_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/ball_by_ball_stats_ap.csv")
-roles_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv")
+    try:
+        # Load trained model and encoders
+        xgb_model = joblib.load("xgb_dismissal_model.pkl")
+        xgb_encoders = joblib.load("xgb_label_encoders.pkl")
+        xgb_features = joblib.load("xgb_model_features.pkl")
+    except Exception as e:
+        st.error(f"❌ Failed to load XGBoost model files: {e}")
+        st.stop()
 
-# --------------------------------
-# Data Preparation
-# --------------------------------
-if "is_wicket" not in stats_df.columns:
-    stats_df["is_wicket"] = (~stats_df["dismissal_type"].isna()).astype(int)
+    # Load ball-by-ball dataset
+    stats_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/ball_by_ball_stats_ap.csv")
+    if "is_wicket" not in stats_df.columns:
+        stats_df["is_wicket"] = (~stats_df["dismissal_type"].isna()).astype(int)
 
-# --------------------------------
-# Streamlit UI
-# --------------------------------
-st.title("🏏 Dismissal Prediction Model (XGBoost)")
-st.markdown("### Predict the chance of a **batsman getting dismissed by a bowler** under given conditions.")
+    # ---------------------------------------------
+    # Use GA and Apriori outputs directly
+    # ---------------------------------------------
+    best_xi_df = st.session_state.best_xi.copy()
+    opponent_xi = st.session_state.opponent_xi
+    venue = input_venue  # from Step 1 input
 
-franchises = sorted(roles_df["franchise"].dropna().unique())
+    # Select phase
+    phase_list = sorted(stats_df["phase"].dropna().unique())
+    phase = st.selectbox("⚡ Select Match Phase", phase_list)
 
-batting_team = st.selectbox("Select Batting Team", franchises)
-bowling_team = st.selectbox("Select Bowling Team", franchises)
-
-batters = sorted(roles_df[roles_df["franchise"] == batting_team]["player_name"].unique())
-bowlers = sorted(roles_df[roles_df["franchise"] == bowling_team]["player_name"].unique())
-
-batting_xi = st.multiselect("Select Batting XI", batters, max_selections=11)
-bowling_xi = st.multiselect("Select Bowling XI", bowlers, max_selections=11)
-
-venue_list = sorted(stats_df["venue"].dropna().unique())
-phase_list = sorted(stats_df["phase"].dropna().unique())
-
-venue = st.selectbox("Select Venue", venue_list)
-phase = st.selectbox("Select Phase", phase_list)
-
-# --------------------------------
-# Build Input Features
-# --------------------------------
-def build_features(batsman, bowler, venue, phase, stats):
-    recent_bat_form = stats[stats["batsman"] == batsman]["runs_scored"].tail(3).mean()
-    bowler_form = stats[stats["bowler"] == bowler]["is_wicket"].tail(10).sum()
-
-    return {
-        "batsman": batsman,
-        "bowler": bowler,
-        "venue": venue,
-        "phase": phase,
-        "recent_bat_form": recent_bat_form if not np.isnan(recent_bat_form) else 0,
-        "bowler_form": bowler_form if not np.isnan(bowler_form) else 0
-    }
-
-# --------------------------------
-# Prediction
-# --------------------------------
-if st.button("🎯 Predict Dismissal Matchups"):
-    if not batting_xi or not bowling_xi:
-        st.warning("Please select both batting and bowling XI.")
-    else:
+    # Prediction Button
+    if st.button("🔮 Generate XGBoost Dismissal Predictions"):
         insights = []
-        for batsman in batting_xi:
-            for bowler in bowling_xi:
+
+        # Helper to build features
+        def build_features(batsman, bowler, venue, phase, stats):
+            recent_bat_form = stats[stats["batsman"] == batsman]["runs_scored"].tail(3).mean()
+            bowler_form = stats[stats["bowler"] == bowler]["is_wicket"].tail(10).sum()
+            return {
+                "batsman": batsman,
+                "bowler": bowler,
+                "venue": venue,
+                "phase": phase,
+                "recent_bat_form": recent_bat_form if not np.isnan(recent_bat_form) else 0,
+                "bowler_form": bowler_form if not np.isnan(bowler_form) else 0
+            }
+
+        # Compute predictions
+        for batsman in best_xi_df["player_name"]:
+            for bowler in opponent_xi:
                 feats = build_features(batsman, bowler, venue, phase, stats_df)
                 input_df = pd.DataFrame([feats])
 
-                # Encode categoricals
+                # Encode categorical columns
                 for col in ["batsman", "bowler", "venue", "phase"]:
-                    if feats[col] in encoders[col].classes_:
-                        input_df[col] = encoders[col].transform([feats[col]])
+                    if feats[col] in xgb_encoders[col].classes_:
+                        input_df[col] = xgb_encoders[col].transform([feats[col]])
                     else:
-                        input_df[col] = [0]  # fallback for unseen
+                        input_df[col] = [0]  # fallback for unseen categories
 
-                prob = model.predict_proba(input_df[features])[0][1] * 100
+                # Predict dismissal probability
+                prob = xgb_model.predict_proba(input_df[xgb_features])[0][1] * 100
+                insights.append((prob, batsman, bowler))
 
-                if prob >= 70:  # only show strong dismissal chances
-                    insights.append((prob, batsman, bowler))
-
+        # Display top results
         if insights:
             insights.sort(key=lambda x: x[0], reverse=True)
-            st.subheader("🔥 Top Dismissal Matchups (>70% Chance)")
-            for prob, batsman, bowler in insights[:10]:
-                st.markdown(f"**{batsman}** has a **{prob:.1f}%** chance of being dismissed by **{bowler}** at **{venue}** in **{phase}**.")
+            st.subheader("🔥 Top Dismissal Matchups (≥60% Chance)")
+            for prob, batsman, bowler in insights[:15]:
+                st.markdown(
+                    f"**{batsman}** has a **{prob:.1f}%** chance of being dismissed by **{bowler}** "
+                    f"at **{venue.title()}** during the **{phase.title()}** phase."
+                )
         else:
-            st.info("No high dismissal matchups (>70%) found for this selection.")
-
+            st.info("No strong dismissal matchups (≥60%) found for this phase.")
