@@ -64,6 +64,7 @@ venue_display = sorted(df_stats_raw['venue'].dropna().unique())
 
 input_team_display = st.selectbox("Select Franchise", franchise_display)
 input_venue_display = st.selectbox("Select Venue", venue_display)
+st.session_state["input_venue"] = input_venue_display
 
 input_team = input_team_display.strip().lower()
 input_venue = input_venue_display.strip().lower()
@@ -298,84 +299,233 @@ if 'best_xi' in st.session_state:
 
 
 #XBoost Matchup Model
-
-# ---------------------------------------------------------------------
-# ---------- Step 4: Dismissal Prediction (XGBoost Model Integration) ----------
-# ---------------------------------------------------------------------
+# ---------- Compact XGBoost Matchup UI ----------
 import joblib
 import numpy as np
+import pandas as pd
+import streamlit as st
 
-if 'best_xi' in st.session_state and 'opponent_xi' in st.session_state:
+# Config — update paths if your files are elsewhere
+MODEL_PATH = "xgb_delivery_model.pkl"
+ENC_PATH = "xgb_delivery_label_encoders.pkl"
+FEAT_PATH = "xgb_delivery_features.pkl"
+ROLES_FILE = "D:/AI ML Cricket Project CIM model/CIM/data/player_roles.csv"
+BALLS_FILE = "D:/AI ML Cricket Project CIM model/CIM/data/ball_by_ball_stats_ap.csv"
+
+# Check session state (must have GA + Apriori run)
+if not ('best_xi' in st.session_state and 'opponent_xi' in st.session_state and 'input_venue' in st.session_state):
+    st.info("Run the GA Best XI selector and opponent Apriori setup first (so venue, Best XI and Opponent XI are available).")
+else:
     st.markdown("---")
-    st.subheader("🎯 XGBoost-Based Dismissal Matchup Prediction")
+    st.subheader("🎯 Compact Dismissal Match-up Viewer (XGBoost)")
 
+    # Load model artifacts (one-time)
     try:
-        # Load trained model and encoders
-        xgb_model = joblib.load("xgb_dismissal_model.pkl")
-        xgb_encoders = joblib.load("xgb_label_encoders.pkl")
-        xgb_features = joblib.load("xgb_model_features.pkl")
+        xgb_model = joblib.load(MODEL_PATH)
+        xgb_encoders = joblib.load(ENC_PATH)
+        xgb_feature_cols = joblib.load(FEAT_PATH)
     except Exception as e:
-        st.error(f"❌ Failed to load XGBoost model files: {e}")
+        st.error(f"Could not load model artifacts: {e}")
         st.stop()
 
-    # Load ball-by-ball dataset
-    stats_df = pd.read_csv("D:/AI ML Cricket Project CIM model/CIM/data/ball_by_ball_stats_ap.csv")
+    # Load supporting data
+    stats_df = pd.read_csv(BALLS_FILE)
     if "is_wicket" not in stats_df.columns:
-        stats_df["is_wicket"] = (~stats_df["dismissal_type"].isna()).astype(int)
+        stats_df["is_wicket"] = (~stats_df.get("dismissal_type", pd.Series([np.nan]*len(stats_df))).isna()).astype(int)
 
-    # ---------------------------------------------
-    # Use GA and Apriori outputs directly
-    # ---------------------------------------------
-    best_xi_df = st.session_state.best_xi.copy()
-    opponent_xi = st.session_state.opponent_xi
-    venue = input_venue  # from Step 1 input
+    # roles file (to order and classify players)
+    try:
+        roles_df = pd.read_csv(ROLES_FILE)
+        roles_df['player_name'] = roles_df['player_name'].astype(str).str.strip()
+        roles_map = dict(zip(roles_df['player_name'].str.lower(), roles_df['role'].str.lower()))
+    except Exception:
+        roles_map = {}  # fallback
 
-    # Select phase
-    phase_list = sorted(stats_df["phase"].dropna().unique())
-    phase = st.selectbox("⚡ Select Match Phase", phase_list)
+    # Convenient role display & ordering
+    ROLE_ORDER = ['opener','middle_order','wicket_keeper','finisher','spinner','fast_bowler']
+    ROLE_LABEL = {
+        'opener':'Opener','middle_order':'Middle','wicket_keeper':'WK','finisher':'Finisher',
+        'spinner':'Spinner','fast_bowler':'Fast'
+    }
 
-    # Prediction Button
-    if st.button("🔮 Generate XGBoost Dismissal Predictions"):
-        insights = []
-
-        # Helper to build features
-        def build_features(batsman, bowler, venue, phase, stats):
-            recent_bat_form = stats[stats["batsman"] == batsman]["runs_scored"].tail(3).mean()
-            bowler_form = stats[stats["bowler"] == bowler]["is_wicket"].tail(10).sum()
-            return {
-                "batsman": batsman,
-                "bowler": bowler,
-                "venue": venue,
-                "phase": phase,
-                "recent_bat_form": recent_bat_form if not np.isnan(recent_bat_form) else 0,
-                "bowler_form": bowler_form if not np.isnan(bowler_form) else 0
-            }
-
-        # Compute predictions
-        for batsman in best_xi_df["player_name"]:
-            for bowler in opponent_xi:
-                feats = build_features(batsman, bowler, venue, phase, stats_df)
-                input_df = pd.DataFrame([feats])
-
-                # Encode categorical columns
-                for col in ["batsman", "bowler", "venue", "phase"]:
-                    if feats[col] in xgb_encoders[col].classes_:
-                        input_df[col] = xgb_encoders[col].transform([feats[col]])
-                    else:
-                        input_df[col] = [0]  # fallback for unseen categories
-
-                # Predict dismissal probability
-                prob = xgb_model.predict_proba(input_df[xgb_features])[0][1] * 100
-                insights.append((prob, batsman, bowler))
-
-        # Display top results
-        if insights:
-            insights.sort(key=lambda x: x[0], reverse=True)
-            st.subheader("🔥 Top Dismissal Matchups (≥60% Chance)")
-            for prob, batsman, bowler in insights[:15]:
-                st.markdown(
-                    f"**{batsman}** has a **{prob:.1f}%** chance of being dismissed by **{bowler}** "
-                    f"at **{venue.title()}** during the **{phase.title()}** phase."
-                )
+    def order_xi(df_or_list):
+        """Return ordered list of player names: batters first (openers, middle, wicket-keeper, finisher), then spinners, then fast bowlers."""
+        players = []
+        if isinstance(df_or_list, pd.DataFrame):
+            df = df_or_list.copy()
+            # use role column if exists, else lookup roles_map
+            if 'role' in df.columns:
+                df['role'] = df['role'].fillna('').astype(str).str.lower()
+            df['player_name'] = df['player_name'].astype(str).str.strip()
+            for r in ROLE_ORDER:
+                selected = df[df['role']==r]['player_name'].tolist()
+                players.extend(selected)
+            # append any unknowns
+            rest = [p for p in df['player_name'].tolist() if p not in players]
+            players.extend(rest)
         else:
-            st.info("No strong dismissal matchups (≥60%) found for this phase.")
+            # df_or_list is a list of names; use roles_map to order
+            names = [str(x).strip() for x in df_or_list]
+            grouped = {r: [] for r in ROLE_ORDER}
+            unknown = []
+            for n in names:
+                r = roles_map.get(n.lower(), '')
+                if r in ROLE_ORDER:
+                    grouped[r].append(n)
+                else:
+                    unknown.append(n)
+            for r in ROLE_ORDER:
+                players.extend(grouped[r])
+            players.extend(unknown)
+        # final ensure uniqueness and keep original order for ties
+        seen=set(); out=[]
+        for p in players:
+            if p not in seen:
+                out.append(p); seen.add(p)
+        return out
+
+    # read session-state
+    best_xi_df = st.session_state.best_xi.copy()
+    opponent_list = st.session_state.opponent_xi.copy()
+    venue = st.session_state.input_venue
+
+    # order XIs
+    my_xi_ordered = order_xi(best_xi_df)
+    opp_xi_ordered = order_xi(opponent_list)
+
+    # UI layout: two columns for XI lists and controls
+    col1, col2 = st.columns([1,2])
+
+    with col1:
+        st.markdown("#### 🏏 Your Playing XI")
+        # Show compact list: batsmen first then bowlers; show small role badges
+        for p in my_xi_ordered:
+            r = (best_xi_df.loc[best_xi_df['player_name']==p, 'role'].iloc[0]
+                 if p in best_xi_df['player_name'].tolist() and 'role' in best_xi_df.columns else roles_map.get(p.lower(), ''))
+            label = ROLE_LABEL.get(r, r.title() if r else '')
+            st.write(f"- **{p}** {f'· {label}' if label else ''}")
+
+        st.markdown("#### 🎯 Opponent XI")
+        # show opponent ordered compactly; include role if found
+        for p in opp_xi_ordered:
+            r = roles_map.get(p.lower(), '')
+            label = ROLE_LABEL.get(r, r.title() if r else '')
+            st.write(f"- {p} {f'· {label}' if label else ''}")
+
+        # controls
+        st.markdown("---")
+        st.write(f"**Venue:** {venue}")
+        phase_list = sorted(stats_df['phase'].dropna().unique())
+        phase = st.selectbox("Select Phase", phase_list, index=0)
+        if st.button("Compute Matchups"):
+            st.session_state['_compute_matchups'] = True
+        else:
+            # preserve previous unless just triggered
+            if '_compute_matchups' not in st.session_state:
+                st.session_state['_compute_matchups'] = False
+
+    with col2:
+        st.markdown("### 🔍 Inspect Player Matchups")
+        # allow selecting which player's matchup to inspect (from either side)
+        inspect_side = st.radio("Choose XI", ("Your XI", "Opponent XI"), horizontal=True)
+        if inspect_side == "Your XI":
+            sel_player = st.selectbox("Select batsman from your XI", my_xi_ordered)
+            inspect_vs = opp_xi_ordered  # show opponent bowlers
+            inspect_bowlers_list = opp_xi_ordered
+            inspector_role = 'batsman'
+        else:
+            sel_player = st.selectbox("Select batsman from opponent XI", opp_xi_ordered)
+            inspect_vs = my_xi_ordered  # show our bowlers
+            inspect_bowlers_list = my_xi_ordered
+            inspector_role = 'batsman'
+
+        # small description
+        st.markdown(f"Showing top bowlers vs **{sel_player}** at **{venue}** during **{phase}**.")
+
+        # only compute when user asked compute (avoids refresh wipes)
+        if st.session_state.get('_compute_matchups', False):
+            # compute matchups: for selected player vs each bowler in list, call model feature builder and predict
+            @st.cache_data(show_spinner=False)
+            def compute_probs_for_pair(batsman, bowlers_list, venue, phase):
+                rows=[]
+                for bowler in bowlers_list:
+                    # build features (reuse same logic as training helper)
+                    b = str(batsman).lower(); w = str(bowler).lower(); v = str(venue).lower(); p = str(phase).lower()
+                    # compute small features from ball-by-ball data
+                    sub_bats = stats_df[stats_df['batsman'].str.lower()==b]
+                    recent_form = 0.0
+                    if 'match_id' in sub_bats.columns and not sub_bats.empty:
+                        try:
+                            match_runs = sub_bats.groupby('match_id')['runs_scored'].sum().reset_index().sort_values('match_id')
+                            recent_form = match_runs['runs_scored'].shift(1).rolling(3, min_periods=1).mean().iloc[-1]
+                            if np.isnan(recent_form): recent_form = 0.0
+                        except Exception:
+                            recent_form = 0.0
+                    # bowler recent wickets
+                    bw = stats_df[stats_df['bowler'].str.lower()==w]
+                    bowler_wickets_last50 = float(bw['is_wicket'].shift(1).tail(50).sum()) if not bw.empty else 0.0
+                    # batsman runs vs this bowler
+                    hv = stats_df[(stats_df['batsman'].str.lower()==b)&(stats_df['bowler'].str.lower()==w)]
+                    batsman_runs_vs_bowler_last50 = float(hv['runs_scored'].shift(1).tail(50).sum()) if not hv.empty else 0.0
+                    vb = stats_df[(stats_df['batsman'].str.lower()==b)&(stats_df['phase'].str.lower()==p)]
+                    bat_phase_rpb = float(vb['runs_scored'].sum() / (len(vb) if len(vb)>0 else 1))
+                    bwp = stats_df[(stats_df['bowler'].str.lower()==w)&(stats_df['phase'].str.lower()==p)]
+                    bp_wicket_rate = float(bwp['is_wicket'].sum() / (len(bwp) if len(bwp)>0 else 1))
+                    # assemble row consistent with training features
+                    row = {
+                        'batsman_l': b, 'bowler_l': w, 'venue_l': v, 'phase_l': p,
+                        'recent_bat_form': float(recent_form),
+                        'bowler_wickets_last50': float(bowler_wickets_last50),
+                        'batsman_runs_vs_bowler_last50': float(batsman_runs_vs_bowler_last50),
+                        'bat_phase_rpb': float(bat_phase_rpb),
+                        'bp_wicket_rate': float(bp_wicket_rate)
+                    }
+                    # fill missing features expected by model with zeros
+                    for f in xgb_feature_cols:
+                        if f not in row: row[f] = 0.0
+                    df_row = pd.DataFrame([row])[xgb_feature_cols]
+                    # encode categoricals
+                    for col, le in xgb_encoders.items():
+                        if col in df_row.columns:
+                            val = str(df_row[col].iloc[0])
+                            try:
+                                if val in le.classes_:
+                                    df_row[col] = le.transform([val])
+                                else:
+                                    df_row[col] = 0
+                            except Exception:
+                                try:
+                                    df_row[col] = le.transform([val])
+                                except Exception:
+                                    df_row[col] = 0
+                    df_row = df_row.astype(float).fillna(0)
+                    # predict
+                    try:
+                        prob = float(xgb_model.predict_proba(df_row)[0][1]) * 100.0
+                    except Exception:
+                        prob = np.nan
+                    rows.append((bowler, prob))
+                # sort descending
+                rows = sorted(rows, key=lambda x: (0 if np.isnan(x[1]) else x[1]), reverse=True)
+                return rows
+
+            # compute probabilities for selected player only (fast)
+            with st.spinner("Calculating probabilities..."):
+                pair_probs = compute_probs_for_pair(sel_player, inspect_vs, venue, phase)
+
+            # compact display: top N + full table toggle
+            top_n = 6
+            st.markdown(f"**Top {top_n} bowlers vs {sel_player}**")
+            df_top = pd.DataFrame(pair_probs[:top_n], columns=["Bowler","Dismissal %"])
+            df_top["Dismissal %"] = df_top["Dismissal %"].apply(lambda x: f"{x:.1f}" if pd.notnull(x) else "–")
+            st.table(df_top)
+
+            with st.expander("Show full 11×11 matchups for this player"):
+                df_full = pd.DataFrame(pair_probs, columns=["Bowler","Dismissal %"])
+                df_full["Dismissal %"] = df_full["Dismissal %"].apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "–")
+                st.dataframe(df_full, use_container_width=True)
+
+        else:
+            st.info("Click **Compute Matchups** (left) to generate predictions; then select a player to inspect.")
+
+    # end columns
