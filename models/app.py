@@ -207,7 +207,7 @@ if 'best_xi' in st.session_state:
         st.success("✅ Squad XI predictions generated successfully!")
 
     else:
-        st.info("Click the button above to generate Squad XI performance predictions.")
+        st.info("Click the button above to generate Squad XI performance predictions.") 
 
 
 # ----------  Opponent & Apriori ----------
