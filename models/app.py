@@ -133,54 +133,81 @@ if 'best_xi' in st.session_state:
     st.markdown("---")
     st.subheader("📊 Squad XI Performance Prediction (SVM Model)")
 
-    # Button to trigger the prediction
     if st.button("🔮 Generate Squad XI Performance Prediction"):
         try:
-            # Load model and features
-            perf_model = joblib.load("svm_player_performance_model.pkl")
-            perf_features = joblib.load("svm_player_performance_features.pkl")
+            # Load the two role-specific SVM models
+            batter_model = joblib.load("svm_batter_model.pkl")
+            bowler_model = joblib.load("svm_bowler_model.pkl")
+            feature_dict = joblib.load("svm_player_performance_features.pkl")
         except Exception as e:
-            st.error(f"❌ Could not load SVM performance model: {e}")
+            st.error(f"❌ Could not load SVM models: {e}")
             st.stop()
 
-        # Prepare features from GA Best XI
+        # Get GA best XI
         best_xi_df = st.session_state.best_xi.copy()
-        best_xi_df['venue'] = input_venue  # Add venue context
+        best_xi_df['venue'] = input_venue
+        best_xi_df['role'] = best_xi_df['role'].str.lower()
 
-        # One-hot encode 'role' and 'venue' same as training
-        cat_encoded = pd.get_dummies(best_xi_df[['role', 'venue']])
-        num_cols = ['runs', 'bat_avg', 'bat_sr', 'wickets', 'econ']
-        num_encoded = best_xi_df[num_cols]
+        # Helper: classify into batter or bowler
+        def classify_group(r):
+            if any(x in r for x in ['bowler', 'spinner']):
+                return 'bowler'
+            return 'batter'
 
-        X_pred = pd.concat([cat_encoded, num_encoded], axis=1)
+        best_xi_df['group'] = best_xi_df['role'].apply(classify_group)
 
-        # Align columns with training features
-        for col in perf_features:
-            if col not in X_pred.columns:
-                X_pred[col] = 0
-        X_pred = X_pred[perf_features]
+        preds_all = []
 
-        # Run prediction
-        preds = perf_model.predict(X_pred)
-        best_xi_df['Predicted_Performance'] = preds
+        # --- Batter predictions ---
+        batters = best_xi_df[best_xi_df['group'] == 'batter'].copy()
+        if not batters.empty:
+            Xb = batters[['runs', 'bat_avg', 'bat_sr']].copy()
+            Xb = pd.concat([Xb, pd.get_dummies(batters[['venue']], drop_first=True)], axis=1)
 
-        # Display results
-        show_df = best_xi_df[['player_name', 'role', 'matches', 'runs', 'bat_avg', 'bat_sr',
-                              'wickets', 'econ', 'Predicted_Performance']]
+            # Align columns
+            batter_feats = feature_dict['batter']
+            for col in batter_feats:
+                if col not in Xb.columns:
+                    Xb[col] = 0
+            Xb = Xb[batter_feats]
+
+            batters['Predicted_Performance'] = batter_model.predict(Xb)
+            preds_all.append(batters)
+
+        # --- Bowler predictions ---
+        bowlers = best_xi_df[best_xi_df['group'] == 'bowler'].copy()
+        if not bowlers.empty:
+            Xw = bowlers[['wickets', 'econ', 'runs']].copy()
+            Xw = pd.concat([Xw, pd.get_dummies(bowlers[['venue']], drop_first=True)], axis=1)
+
+            bowler_feats = feature_dict['bowler']
+            for col in bowler_feats:
+                if col not in Xw.columns:
+                    Xw[col] = 0
+            Xw = Xw[bowler_feats]
+
+            bowlers['Predicted_Performance'] = bowler_model.predict(Xw)
+            preds_all.append(bowlers)
+
+        # Merge back
+        final_df = pd.concat(preds_all).sort_index()
+
+        # Display table
+        show_df = final_df[['player_name', 'role', 'matches', 'runs', 'bat_avg', 'bat_sr',
+                            'wickets', 'econ', 'Predicted_Performance']]
         show_df = format_floats(sort_by_role(format_roles(show_df)))
         st.dataframe(show_df, use_container_width=True)
 
         # Summary counts
-        perf_summary = show_df['Predicted_Performance'].value_counts().reset_index()
-        perf_summary.columns = ['Performance Category', 'Count']
+        summary = show_df['Predicted_Performance'].value_counts().reset_index()
+        summary.columns = ['Performance Category', 'Count']
         st.subheader("Performance Summary")
-        st.dataframe(perf_summary, use_container_width=True)
+        st.dataframe(summary, use_container_width=True)
 
-        st.success("✅ Player performance predictions generated successfully!")
+        st.success("✅ Squad XI predictions generated successfully!")
+
     else:
         st.info("Click the button above to generate Squad XI performance predictions.")
-
-
 
 
 # ----------  Opponent & Apriori ----------

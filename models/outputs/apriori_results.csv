@@ -1,0 +1,145 @@
+bowler,batsman,venue,phase,dismissal_type,support,confidence,lift,dismissal_prob
+jadeja,ashutosh sharma,,,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,,,0.14285714285714285,1.0,3.5,0.5
+khaleel ahmed,du plessis,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,,,,0.14285714285714285,0.5,3.5,0.25
+pathirana,rahul,,,,0.2857142857142857,0.6666666666666666,2.3333333333333335,0.22222222222222224
+jadeja,ashutosh sharma,,,caught,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,middle,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,"himachal pradesh cricket association stadium, dharamsala",,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,,caught,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,,,,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,,middle,,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,,,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,"arun jaitley stadium, delhi",,,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,,,,0.14285714285714285,1.0,7.0,1.0
+pathirana,axar,"ma chidambaram stadium, chennai",,,0.14285714285714285,0.5,1.75,0.125
+khaleel ahmed,du plessis,,,caught,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,,powerplay,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,"wankhede stadium, mumbai",,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,,,caught,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,,death,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,"narendra modi stadium, ahmedabad",,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,,,0.14285714285714285,0.5,3.5,0.25
+pathirana,rahul,,,caught,0.2857142857142857,0.6666666666666666,2.3333333333333335,0.22222222222222224
+pathirana,rahul,,,,0.2857142857142857,0.6666666666666666,2.3333333333333335,0.22222222222222224
+pathirana,rahul,,death,,0.2857142857142857,0.6666666666666666,2.3333333333333335,0.22222222222222224
+pathirana,rahul,,,,0.2857142857142857,0.6666666666666666,2.3333333333333335,0.22222222222222224
+pathirana,rahul,"bharat ratna shri atal bihari vajpayee ekana cricket stadium, lucknow",,,0.14285714285714285,1.0,3.5,0.5
+pathirana,rahul,"ma chidambaram stadium, chennai",,,0.14285714285714285,0.5,1.75,0.125
+jadeja,ashutosh sharma,,middle,caught,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,caught,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,middle,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,"himachal pradesh cricket association stadium, dharamsala",,caught,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,caught,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,"himachal pradesh cricket association stadium, dharamsala",,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,"himachal pradesh cricket association stadium, dharamsala",middle,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,"himachal pradesh cricket association stadium, dharamsala",,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,middle,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,middle,caught,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,,,caught,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,middle,,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,,,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,"arun jaitley stadium, delhi",,caught,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,"arun jaitley stadium, delhi",,,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,,,caught,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,"arun jaitley stadium, delhi",middle,,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,"arun jaitley stadium, delhi",,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,middle,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,,,0.14285714285714285,1.0,7.0,1.0
+pathirana,axar,"ma chidambaram stadium, chennai",,caught,0.14285714285714285,0.5,1.75,0.125
+pathirana,axar,"ma chidambaram stadium, chennai",,,0.14285714285714285,0.5,1.75,0.125
+pathirana,axar,"ma chidambaram stadium, chennai",death,,0.14285714285714285,0.5,1.75,0.125
+pathirana,axar,"ma chidambaram stadium, chennai",,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,,powerplay,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,,caught,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,,powerplay,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,"wankhede stadium, mumbai",,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,,caught,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,"wankhede stadium, mumbai",,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,"wankhede stadium, mumbai",powerplay,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,"wankhede stadium, mumbai",,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,powerplay,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,,death,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,death,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,,caught,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,"narendra modi stadium, ahmedabad",,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,,caught,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,"narendra modi stadium, ahmedabad",,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,"narendra modi stadium, ahmedabad",death,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,death,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,"narendra modi stadium, ahmedabad",,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,,,0.14285714285714285,0.5,3.5,0.25
+pathirana,rahul,,death,caught,0.2857142857142857,0.6666666666666666,2.3333333333333335,0.22222222222222224
+pathirana,rahul,,death,,0.2857142857142857,0.6666666666666666,2.3333333333333335,0.22222222222222224
+pathirana,rahul,,,caught,0.2857142857142857,0.6666666666666666,2.3333333333333335,0.22222222222222224
+pathirana,rahul,,,,0.2857142857142857,0.6666666666666666,2.3333333333333335,0.22222222222222224
+pathirana,rahul,"bharat ratna shri atal bihari vajpayee ekana cricket stadium, lucknow",,caught,0.14285714285714285,1.0,3.5,0.5
+pathirana,rahul,"bharat ratna shri atal bihari vajpayee ekana cricket stadium, lucknow",,,0.14285714285714285,1.0,3.5,0.5
+pathirana,rahul,"ma chidambaram stadium, chennai",,caught,0.14285714285714285,0.5,1.75,0.125
+pathirana,rahul,"ma chidambaram stadium, chennai",,,0.14285714285714285,0.5,1.75,0.125
+pathirana,rahul,"bharat ratna shri atal bihari vajpayee ekana cricket stadium, lucknow",death,,0.14285714285714285,1.0,3.5,0.5
+pathirana,rahul,"bharat ratna shri atal bihari vajpayee ekana cricket stadium, lucknow",,,0.14285714285714285,1.0,3.5,0.5
+pathirana,rahul,"ma chidambaram stadium, chennai",death,,0.14285714285714285,0.5,1.75,0.125
+pathirana,rahul,"ma chidambaram stadium, chennai",,,0.14285714285714285,0.5,1.75,0.125
+jadeja,ashutosh sharma,"himachal pradesh cricket association stadium, dharamsala",middle,caught,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,"himachal pradesh cricket association stadium, dharamsala",,caught,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,middle,caught,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,"himachal pradesh cricket association stadium, dharamsala",middle,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,caught,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,"himachal pradesh cricket association stadium, dharamsala",,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,middle,,0.14285714285714285,1.0,7.0,1.0
+jadeja,ashutosh sharma,,,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,"arun jaitley stadium, delhi",middle,caught,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,"arun jaitley stadium, delhi",,caught,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,middle,caught,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,"arun jaitley stadium, delhi",middle,,0.14285714285714285,1.0,3.5,0.5
+ashwin,axar,,,caught,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,"arun jaitley stadium, delhi",,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,middle,,0.14285714285714285,1.0,7.0,1.0
+ashwin,axar,,,,0.14285714285714285,1.0,7.0,1.0
+pathirana,axar,"ma chidambaram stadium, chennai",death,caught,0.14285714285714285,0.5,1.75,0.125
+pathirana,axar,"ma chidambaram stadium, chennai",,caught,0.14285714285714285,0.5,3.5,0.25
+pathirana,axar,"ma chidambaram stadium, chennai",death,,0.14285714285714285,0.5,1.75,0.125
+pathirana,axar,"ma chidambaram stadium, chennai",,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,"wankhede stadium, mumbai",powerplay,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,"wankhede stadium, mumbai",,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,"wankhede stadium, mumbai",powerplay,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,powerplay,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,"wankhede stadium, mumbai",,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,,caught,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,du plessis,,powerplay,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,du plessis,,,,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,"narendra modi stadium, ahmedabad",death,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,"narendra modi stadium, ahmedabad",,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,death,caught,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,"narendra modi stadium, ahmedabad",death,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,,caught,0.14285714285714285,0.5,3.5,0.25
+khaleel ahmed,mohit sharma,"narendra modi stadium, ahmedabad",,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,death,,0.14285714285714285,1.0,7.0,1.0
+khaleel ahmed,mohit sharma,,,,0.14285714285714285,0.5,3.5,0.25
+pathirana,rahul,"bharat ratna shri atal bihari vajpayee ekana cricket stadium, lucknow",death,caught,0.14285714285714285,1.0,3.5,0.5
+pathirana,rahul,"bharat ratna shri atal bihari vajpayee ekana cricket stadium, lucknow",,caught,0.14285714285714285,1.0,3.5,0.5
+pathirana,rahul,"bharat ratna shri atal bihari vajpayee ekana cricket stadium, lucknow",death,,0.14285714285714285,1.0,3.5,0.5
+pathirana,rahul,"bharat ratna shri atal bihari vajpayee ekana cricket stadium, lucknow",,,0.14285714285714285,1.0,3.5,0.5
+pathirana,rahul,"ma chidambaram stadium, chennai",death,caught,0.14285714285714285,0.5,1.75,0.125
+pathirana,rahul,"ma chidambaram stadium, chennai",,caught,0.14285714285714285,0.5,1.75,0.125
+pathirana,rahul,"ma chidambaram stadium, chennai",death,,0.14285714285714285,0.5,1.75,0.125
+pathirana,rahul,"ma chidambaram stadium, chennai",,,0.14285714285714285,0.5,1.75,0.125
